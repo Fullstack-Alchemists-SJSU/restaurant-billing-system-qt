@@ -46,6 +46,15 @@ else()
             FileManager.cpp
             LoginController.cpp
             admindashboard.h admindashboard.cpp admindashboard.ui
+            AdminDashboardController.h
+            AdminDashboardController.cpp
+            Constants.h
+            edituserdialog.h edituserdialog.cpp edituserdialog.ui
+            EditUserDialogController.h
+            EditUserDialogController.cpp
+
+
+
 
 
 

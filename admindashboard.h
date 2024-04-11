@@ -2,6 +2,11 @@
 #define ADMINDASHBOARD_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include "edituserdialog.h"
+#include "AdminDashboardController.h"
+#include "Constants.h"
 
 namespace Ui {
 class AdminDashboard;
@@ -19,9 +24,46 @@ signals:
 
 private slots:
     void on_buttonLogout_clicked();
+    void editUserClicked(int row);
+    void deleteUserClicked(int row);
 
 private:
     Ui::AdminDashboard *ui;
+    AdminDashboardController controller;
+    EditUserDialog *editUserDialog;
+
+    void setupTable();
+
+    static QPushButton* iconButton(QString iconPath){
+        QIcon icon(iconPath);
+        QPushButton* iconPushButton = new QPushButton();
+        iconPushButton->setIcon(icon);
+        iconPushButton->setIconSize(QSize(24, 24));
+
+        return iconPushButton;
+    }
+
+    static QWidget* actionsColumnWidget(AdminDashboard* instance, int row){
+        QWidget* containerWidget = new QWidget();
+        QHBoxLayout* layout = new QHBoxLayout(containerWidget);
+
+        QPushButton *editButton = iconButton(Constants::EDIT_SVG);
+        connect(editButton, &QPushButton::clicked, instance, [=](){
+            instance->editUserClicked(row);
+        });
+
+        QPushButton *deleteButton = iconButton(Constants::DELETE_SVG);
+        connect(deleteButton, &QPushButton::clicked, instance, [=](){
+            instance->deleteUserClicked(row);
+        });
+
+
+        layout->addWidget(editButton);
+        layout->addWidget(deleteButton);
+        layout->setContentsMargins(4, 2, 4, 2);
+        containerWidget->setLayout(layout);
+        return containerWidget;
+    }
 };
 
 #endif // ADMINDASHBOARD_H

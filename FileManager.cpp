@@ -1,9 +1,10 @@
 #include "FileManager.h"
 #include <QDebug>
+
 FileManager::FileManager(const QString& filename) : fileName(filename) {}
 
-QList<QString> FileManager::read() {
-    QList<QString> data;
+QList<QStringList> FileManager::read(bool skipEmptyParts) {
+    QList<QStringList> data;
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Cannot open file for reading:" << file.errorString();
@@ -13,7 +14,11 @@ QList<QString> FileManager::read() {
     QTextStream in(&file);
     while (!in.atEnd()) {
         QString line = in.readLine();
-        data.append(line);
+        if(skipEmptyParts){
+            data.append(line.split(",", Qt::SkipEmptyParts));
+        }else{
+            data.append(line.split(","));
+        }
     }
 
     file.close();
@@ -35,17 +40,16 @@ void FileManager::write(const QList<QStringList>& data) {
     file.close();
 }
 
-// Update a row by ID
 void FileManager::update(int id, const QStringList& newRow) {
-    // QList<QString> data = read();
+    QList<QStringList> data = read();
 
-    // // Find and update the row with the matching ID
-    // for (QString& row : data) {
-    //     if (row.size() > 0 && row[0].toInt() == id) {
-    //         row = newRow;
-    //         break;
-    //     }
-    // }
+    // Find and update the row with the matching ID
+    for (QStringList &row : data) {
+        if (row.size() > 0 && row[0].toInt() == id) {
+            row = newRow;
+            break;
+        }
+    }
 
-    // write(data);
+    write(data);
 }

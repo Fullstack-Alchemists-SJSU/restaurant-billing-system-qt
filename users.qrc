@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>users.csv</file>
+        <file>delete.svg</file>
+        <file>edit.svg</file>
     </qresource>
 </RCC>

@@ -16,7 +16,7 @@ private:
     QString fileName;
 public:
     FileManager(const QString& filename);
-    QList<QString> read();
+    QList<QStringList> read(bool skipEmptyParts = false);
     void write(const QList<QStringList>& data);
     void update(int id, const QStringList& newRow);
 };
