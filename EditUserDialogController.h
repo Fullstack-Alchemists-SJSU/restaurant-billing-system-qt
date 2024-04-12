@@ -19,11 +19,14 @@ public:
     EditUserDialogController(QStringList originalRow, QStringList editedRow);
 
     void setEdited(int columnIndex, QString newValue);
+    void setEdited(QStringList newRow);
     QStringList getEdited();
 
     bool isRowEdited();
 
     void updateUser();
+    int getNextUserId();
+    void addNewUser(QStringList newUser);
 };
 
 #endif // EDITUSERDIALOGCONTROLLER_H

@@ -22,18 +22,23 @@ void AdminDashboard::on_buttonLogout_clicked()
     emit backNavigationRequested();
 }
 
-void AdminDashboard::editUserClicked(int row){
-
+void AdminDashboard::showUserDialog(int row){
     int columnCount = ui->tableView->model()->columnCount() - 1; // -1 for excluding the Actions column
     QStringList rowData;
-    for (int column = 0; column < columnCount; ++column) {
-        QModelIndex index = ui->tableView->model()->index(row, column);
-        QVariant data = ui->tableView->model()->data(index);
-        rowData.append(data.toString());
+    if(row != -1){
+        for (int column = 0; column < columnCount; ++column) {
+            QModelIndex index = ui->tableView->model()->index(row, column);
+            QVariant data = ui->tableView->model()->data(index);
+            rowData.append(data.toString());
+        }
     }
     editUserDialog = new EditUserDialog(rowData, this);
-    connect(editUserDialog, &QDialog::accepted, this, &AdminDashboard::setupTable);
+    connect(editUserDialog, &EditUserDialog::operationFinished, this, &AdminDashboard::setupTable);
     editUserDialog->exec();
+}
+
+void AdminDashboard::editUserClicked(int row){
+    showUserDialog(row);
 }
 
 void AdminDashboard::setupTable(){
@@ -52,4 +57,11 @@ void AdminDashboard::setupTable(){
 
 void AdminDashboard::deleteUserClicked(int row){
     controller.deleteUser(row);
+    setupTable();
 }
+
+void AdminDashboard::on_pushButton_clicked()
+{
+    showUserDialog(-1);
+}
+

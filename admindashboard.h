@@ -27,12 +27,15 @@ private slots:
     void editUserClicked(int row);
     void deleteUserClicked(int row);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::AdminDashboard *ui;
     AdminDashboardController controller;
     EditUserDialog *editUserDialog;
 
     void setupTable();
+    void showUserDialog(int row);
 
     static QPushButton* iconButton(QString iconPath){
         QIcon icon(iconPath);

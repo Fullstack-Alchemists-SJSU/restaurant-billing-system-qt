@@ -27,6 +27,9 @@ private slots:
 
     void onOkClicked();
 
+signals:
+    void operationFinished();
+
 private:
     Ui::EditUserDialog *ui;
     QPushButton *okButton, *cancelButton;

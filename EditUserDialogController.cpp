@@ -18,9 +18,15 @@ bool EditUserDialogController::isRowEdited(){
 }
 
 void EditUserDialogController::setEdited(int columnIndex, QString newValue){
-    QStringList temp(this->editedRow);
-    temp.replace(columnIndex, newValue);
-    this->editedRow = temp;
+    if(!this->editedRow.isEmpty()){
+        QStringList temp(this->editedRow);
+        temp.replace(columnIndex, newValue);
+        this->editedRow = temp;
+    }
+}
+
+void EditUserDialogController::setEdited(QStringList newRow){
+    this->editedRow = newRow;
 }
 
 QStringList EditUserDialogController::getEdited(){
@@ -29,4 +35,12 @@ QStringList EditUserDialogController::getEdited(){
 
 void EditUserDialogController::updateUser(){
     this->fileManager.update(this->editedRow.at(static_cast<int>(Constants::USER_ID_COLUMN_INDEX)).toInt(), this->editedRow);
+}
+
+int EditUserDialogController::getNextUserId(){
+    return fileManager.getNextUserId();
+}
+
+void EditUserDialogController::addNewUser(QStringList newUser){
+    fileManager.appendAtEnd(newUser);
 }

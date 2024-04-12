@@ -74,3 +74,33 @@ void FileManager::deleteUser(int id) {
         qDebug() << "Row with ID" << id << "not found.";
     }
 }
+
+int FileManager::getNextUserId(){
+    QList<QStringList> data = read();
+    int maxId = 0;  // Start with a default max ID of 0
+    bool ok;
+
+    for (const QStringList& row : data) {
+        if (!row.isEmpty()) {
+            int currentId = row.first().toInt(&ok);
+            if (ok && currentId > maxId) {
+                maxId = currentId;
+            }
+        }
+    }
+
+    return maxId + 1; // + 1 for the next ID to assign to the new user
+}
+
+void FileManager::appendAtEnd(QStringList newRow){
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        qDebug() << "Cannot open file for appending:" << file.errorString();
+        return;
+    }
+
+    QTextStream out(&file);
+    out << newRow.join(",") << "\n";
+
+    file.close();
+}
