@@ -2,7 +2,8 @@
 #define EDITUSERDIALOGCONTROLLER_H
 
 #include <QtCore/QStringList>
-#include "FileManager.h"
+#include "../db/FileManager.h"
+#include "../util/Constants.h"
 
 QT_BEGIN_NAMESPACE
 namespace Controller {

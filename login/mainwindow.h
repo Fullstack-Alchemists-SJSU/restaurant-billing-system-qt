@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "LoginDataModel.h"
 #include "LoginController.h"
-#include "admindashboard.h"
+#include "../admin/admindashboard.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

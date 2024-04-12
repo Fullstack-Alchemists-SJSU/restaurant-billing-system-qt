@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "EditUserDialogController.h"
+#include "../util/Constants.h"
 
 namespace Ui {
 class EditUserDialog;

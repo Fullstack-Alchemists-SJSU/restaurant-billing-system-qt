@@ -3,7 +3,8 @@
 
 #include<QtCore/QString>
 #include <QStandardItemModel>
-#include "FileManager.h"
+#include "../db/FileManager.h"
+#include "../util/Constants.h"
 #include <QTableView>
 
 QT_BEGIN_NAMESPACE
