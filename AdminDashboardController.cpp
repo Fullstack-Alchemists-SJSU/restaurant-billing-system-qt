@@ -27,3 +27,8 @@ QStandardItemModel* AdminDashboardController::populateTable(){
 
     return model;
 }
+
+void AdminDashboardController::deleteUser(int row){
+    QList<QStringList> rows = fileManager.read(true);
+    fileManager.deleteUser(rows.at(row + 1).at(Constants::USER_ID_COLUMN_INDEX).toInt()); //row + 1 because 0 indexing
+}

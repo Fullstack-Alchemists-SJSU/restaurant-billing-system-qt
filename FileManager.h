@@ -19,6 +19,7 @@ public:
     QList<QStringList> read(bool skipEmptyParts = false);
     void write(const QList<QStringList>& data);
     void update(int id, const QStringList& newRow);
+    void deleteUser(int id);
 };
 
 #endif // FILEMANAGER_H

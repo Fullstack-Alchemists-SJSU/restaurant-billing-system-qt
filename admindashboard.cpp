@@ -51,6 +51,5 @@ void AdminDashboard::setupTable(){
 }
 
 void AdminDashboard::deleteUserClicked(int row){
-    qDebug() << "Delete user clicked for " << row;
+    controller.deleteUser(row);
 }
-

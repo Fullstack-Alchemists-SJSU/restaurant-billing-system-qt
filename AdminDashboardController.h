@@ -19,6 +19,7 @@ private:
 public:
     AdminDashboardController();
     QStandardItemModel* populateTable();
+    void deleteUser(int id);
 };
 
 QT_END_NAMESPACE

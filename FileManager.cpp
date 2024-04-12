@@ -53,3 +53,24 @@ void FileManager::update(int id, const QStringList& newRow) {
 
     write(data);
 }
+
+void FileManager::deleteUser(int id) {
+    QList<QStringList> data = read();  // Read existing data
+    int indexToRemove = -1;
+
+    // Find the row with the matching ID
+    for (int i = 0; i < data.size(); ++i) {
+        if (!data.at(i).isEmpty() && data.at(i).first().toInt() == id) {
+            indexToRemove = i;
+            break;
+        }
+    }
+
+    // Remove the row if found
+    if (indexToRemove != -1) {
+        data.removeAt(indexToRemove);
+        write(data);  // Write the modified data back to the file
+    } else {
+        qDebug() << "Row with ID" << id << "not found.";
+    }
+}
