@@ -1,7 +1,7 @@
 #include "LoginController.h"
 #include <QDebug>
 
-LoginController::LoginController() : fileManager(fileName){}
+LoginController::LoginController() : fileManager(Constants::USER_FILE){}
 
 bool LoginController::login(const QString &username, const QString &password){
 

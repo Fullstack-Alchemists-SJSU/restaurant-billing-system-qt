@@ -4,9 +4,9 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QHBoxLayout>
-#include "edituserdialog.h"
+#include "../user_use_case/edituserdialog.h"
 #include "AdminDashboardController.h"
-#include "Constants.h"
+#include "../util/Constants.h"
 
 namespace Ui {
 class AdminDashboard;

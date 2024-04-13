@@ -1,6 +1,5 @@
 #include "edituserdialog.h"
 #include "ui_edituserdialog.h"
-#include "Constants.h"
 #include <QDebug>
 #include <QPushButton>
 

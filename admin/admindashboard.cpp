@@ -1,6 +1,5 @@
 #include "admindashboard.h"
 #include "ui_admindashboard.h"
-#include "Constants.h"
 #include <QDebug>
 
 AdminDashboard::AdminDashboard(QWidget *parent)

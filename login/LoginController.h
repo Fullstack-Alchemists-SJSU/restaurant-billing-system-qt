@@ -2,7 +2,8 @@
 #define LOGINCONTROLLER_H
 
 #include <QtCore/QString>
-#include "FileManager.h"
+#include "../db/FileManager.h"
+#include "../util/Constants.h"
 
 QT_BEGIN_NAMESPACE
 namespace Controller {
@@ -21,7 +22,6 @@ enum class UserColumnIndexes{
 class LoginController{
 
 private:
-    const QString fileName = ":/users.csv";
     FileManager fileManager;
 public:
     LoginController();

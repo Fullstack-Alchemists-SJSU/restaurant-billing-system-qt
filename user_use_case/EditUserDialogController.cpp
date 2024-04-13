@@ -1,5 +1,4 @@
 #include "EditUserDialogController.h"
-#include "Constants.h"
 #include <QDebug>
 
 EditUserDialogController::EditUserDialogController(QStringList original, QStringList edited): originalRow(original), editedRow(edited), fileManager(Constants::USER_FILE){}
