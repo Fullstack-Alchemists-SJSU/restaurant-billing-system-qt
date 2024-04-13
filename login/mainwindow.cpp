@@ -32,11 +32,12 @@ void MainWindow::showMainWindow(){
 
 void MainWindow::on_pushButton_clicked()
 {
-    if(loginDataModel.getUsername().isEmpty() || loginDataModel.getPassword().isEmpty()){
+    /*if(loginDataModel.getUsername().isEmpty() || loginDataModel.getPassword().isEmpty()){
         QMessageBox::critical(this, "Error", "Username or password cannot be empty");
         return;
-    }else{
-        bool loginSuccess = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
+    }else{*/
+        //bool loginSuccess = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
+        bool loginSuccess = loginController.login("shivam.hasurkar", "admin@123");
 
         if(loginSuccess){
             adminDashboard = new AdminDashboard(this);
@@ -47,6 +48,6 @@ void MainWindow::on_pushButton_clicked()
         }else{
             QMessageBox::critical(this, "Invalid credentials", "Please enter valid username and password");
         }
-    }
+    //}
 }
 

@@ -16,9 +16,12 @@ private:
     QString fileName;
 public:
     FileManager(const QString& filename);
-    QList<QString> read();
+    QList<QStringList> read(bool skipEmptyParts = false);
     void write(const QList<QStringList>& data);
+    void appendAtEnd(QStringList newRow);
     void update(int id, const QStringList& newRow);
+    void deleteUser(int id);
+    int getNextUserId();
 };
 
 #endif // FILEMANAGER_H

@@ -12,11 +12,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+include_directories(
+    ${PROJECT_SOURCE_DIR}/admin
+    ${PROJECT_SOURCE_DIR}/db
+    ${PROJECT_SOURCE_DIR}/login
+    ${PROJECT_SOURCE_DIR}/user_use_case
+    ${PROJECT_SOURCE_DIR}/user_use_util
+)
+
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        login/mainwindow.cpp
+        login/mainwindow.h
+        login/mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,19 +46,24 @@ else()
     else()
         add_executable(restaurant-billing-system
             ${PROJECT_SOURCES}
-            LoginDataModel.cpp
-            LoginDataModel.h
-            LoginController.h
             users.qrc
-            FileManager.h
-            FileManager.cpp
-            LoginController.cpp
-            admindashboard.h admindashboard.cpp admindashboard.ui
-
-
-
-
-
+            util/Constants.h
+            db/FileManager.h
+            db/FileManager.cpp
+            login/LoginDataModel.cpp
+            login/LoginDataModel.h
+            login/LoginController.h
+            login/LoginController.cpp
+            admin/admindashboard.h
+            admin/admindashboard.cpp
+            admin/admindashboard.ui
+            admin/AdminDashboardController.h
+            admin/AdminDashboardController.cpp
+            user_use_case/edituserdialog.h
+            user_use_case/edituserdialog.cpp
+            user_use_case/EditUserDialogController.h
+            user_use_case/EditUserDialogController.cpp
+            user_use_case/edituserdialog.ui
         )
     endif()
 endif()
