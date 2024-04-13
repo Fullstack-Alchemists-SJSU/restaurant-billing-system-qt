@@ -115,7 +115,7 @@ To get started, clone [this](https://github.com/Fullstack-Alchemists-SJSU/restau
 git clone https://github.com/Fullstack-Alchemists-SJSU/restaurant-billing-system-qt.git
 ```
 
-This project is built using the QT Framework. If you do not have QT Creator installed, you can download it from [here](https://www.qt.io/product/development-tools). After installing QT Creator, open the cloned project in QT Creator.
+This project uses **c++ version 13.2.0**. and is built using the QT Framework (**QT Creator version 12.0.2**). If you do not have QT Creator installed, you can download it from [here](https://www.qt.io/product/development-tools). After installing QT Creator, open the cloned project in QT Creator.
 
 ### 2. Changing data file path
 
