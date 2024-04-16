@@ -1,15 +1,15 @@
 #include "LoginController.h"
 #include <QDebug>
 
-LoginController::LoginController() : fileManager(Constants::USER_FILE){}
+LoginController::LoginController() : fileManager(){}
 
 bool LoginController::login(const QString &username, const QString &password){
 
     bool isLoginSuccess = false;
 
-    QList<QStringList> rows = fileManager.read();
-    for(QStringList row : rows){
-        if(username.compare(row[static_cast<int>(UserColumnIndexes::USERNAME)]) == 0 && password.compare(row[static_cast<int>(UserColumnIndexes::PASSWORD)]) == 0){
+    QList<User*> allUsers = fileManager.getAllUsers();
+    for(User* user : allUsers){
+        if(username.compare(user->getUsername()) == 0 && password.compare(user->getPassword()) == 0){
             return true;
         }
     }
