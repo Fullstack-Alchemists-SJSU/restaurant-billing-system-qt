@@ -3,27 +3,28 @@
 #include <QDebug>
 #include <QPushButton>
 
-EditUserDialog::EditUserDialog(const QStringList &row, QWidget *parent)
+EditUserDialog::EditUserDialog(User* &user, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::EditUserDialog)
-    , row(row)
-    , controller(new EditUserDialogController(row, row))
+    , user(user)
+    , controller(new EditUserDialogController(user, user))
 {
     ui->setupUi(this);
 
     okButton = ui->buttonBox->button(QDialogButtonBox::Ok);    cancelButton = ui->buttonBox->button(QDialogButtonBox::Cancel);
     connect(okButton, &QPushButton::clicked, this, &EditUserDialog::onOkClicked);
 
-    ui->comboRole->addItem(Constants::enumToString(Role::Admin), static_cast<int>(Role::Admin));
-    ui->comboRole->addItem(Constants::enumToString(Role::StaffMember), static_cast<int>(Role::StaffMember));
-    ui->comboRole->addItem(Constants::enumToString(Role::Accountant), static_cast<int>(Role::Accountant));
+    ui->comboRole->blockSignals(true);
+    ui->comboRole->addItem(User::enumToString(Role::Admin), QVariant(static_cast<int>(Role::Admin)));
+    ui->comboRole->addItem(User::enumToString(Role::StaffMember), QVariant(static_cast<int>(Role::StaffMember)));
+    ui->comboRole->addItem(User::enumToString(Role::Accountant), QVariant(static_cast<int>(Role::Accountant)));
 
-
-    if(row.isEmpty()){
+    if(user == nullptr){
         this->setWindowTitle("Add New User");
         ui->editUserId->setVisible(false);
         ui->labelUserId->setVisible(false);
         okButton->setEnabled(true);
+        ui->comboRole->blockSignals(false);
     }else{
         this->setWindowTitle("Edit User");
         populateDefaultFormValues();
@@ -36,50 +37,51 @@ EditUserDialog::~EditUserDialog()
 }
 
 void EditUserDialog::populateDefaultFormValues(){
-    ui->editUserId->setText(row.at(Constants::USER_ID_COLUMN_INDEX));
-    ui->editUsername->setText(row.at(Constants::USERNAME_COLUMN_INDEX));
-    ui->editPassword->setText(row.at(Constants::PASSWORD_COLUMN_INDEX));
-
-    ui->comboRole->setCurrentIndex(ui->comboRole->findData(static_cast<QString>(row.at(Constants::ROLE_COLUMN_INDEX))));
-
-    //okButton->setEnabled(this->controller->isRowEdited());
+    ui->editUserId->setText(QString::number(user->getUserId()));
+    ui->editUsername->setText(user->getUsername());
+    ui->editPassword->setText(user->getPassword());
+    qDebug() << "Editing: " << user->getUsername() << " role:" << User::enumToString(user->getRole()) << " " << static_cast<int>(user->getRole());
+    ui->comboRole->setCurrentIndex(ui->comboRole->findData(static_cast<int>(user->getRole())));
+    ui->comboRole->blockSignals(false);
 }
 
 void EditUserDialog::on_editUsername_textChanged(const QString &arg1)
 {
-    this->controller->setEdited(static_cast<int>(Constants::USERNAME_COLUMN_INDEX), arg1);
-
-    //okButton->setEnabled(this->controller->isRowEdited());
+    if(this->user == nullptr){
+        this->newUsername = arg1;
+    }else{
+        this->user->setUsername(arg1);
+    }
 }
 
 
 void EditUserDialog::on_editPassword_textChanged(const QString &arg1)
 {
-    this->controller->setEdited(static_cast<int>(Constants::PASSWORD_COLUMN_INDEX), arg1);
-
-    //okButton->setEnabled(this->controller->isRowEdited());
+    if(this->user == nullptr){
+        this->newPassword = arg1;
+    }else{
+        this->user->setPassword(arg1);
+    }
 }
 
 
 void EditUserDialog::on_comboRole_currentIndexChanged(int index)
 {
-    this->controller->setEdited(static_cast<int>(Constants::ROLE_COLUMN_INDEX), QString::number(Constants::indexToEnumValue(index)));
-    //okButton->setEnabled(this->controller->isRowEdited());
+    if(this->user == nullptr){
+        this->newRole = User::intToEnumValue(ui->comboRole->currentData().toInt());
+    }else{
+        this->user->setRole(User::intToEnumValue(ui->comboRole->currentData().toInt()));
+    }
 }
 
 void EditUserDialog::onOkClicked(){
-    if(!row.isEmpty()){
-        this->controller->updateUser();
+    if(user == nullptr){
+        this->controller->setEdited(UserFactory::build(this->controller->getNextUserId(), this->newUsername, this->newPassword, this->newRole));
+        controller->addNewUser();
     }else{
-        QStringList newUserRow;
-        newUserRow.insert(Constants::USER_ID_COLUMN_INDEX, QString::number(controller->getNextUserId()));
-        newUserRow.insert(Constants::USERNAME_COLUMN_INDEX, ui->editUsername->text());
-        newUserRow.insert(Constants::PASSWORD_COLUMN_INDEX, ui->editPassword->text());
-        newUserRow.insert(Constants::ROLE_COLUMN_INDEX, QString::number(ui->comboRole->currentIndex() + 1));
-
-        controller->addNewUser(newUserRow);
+        this->controller->setEdited(this->user);
+        this->controller->updateUser();
     }
 
     emit operationFinished();
 }
-

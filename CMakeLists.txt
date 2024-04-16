@@ -64,6 +64,17 @@ else()
             user_use_case/EditUserDialogController.h
             user_use_case/EditUserDialogController.cpp
             user_use_case/edituserdialog.ui
+            model/user/User.h
+            model/user/Admin.h
+            model/user/StaffMember.h
+            model/user/Accountant.h
+            model/user/UserFactory.h
+            model/user/UserFactory.cpp
+            db/UserManager.h
+            db/UserManager.cpp
+            admin/UserTableModelAdapter.cpp
+            admin/UserTableModelAdapter.h
+
         )
     endif()
 endif()
