@@ -31,6 +31,18 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(restaurant-billing-system
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        add-user.png admin-dashboard.png CMakeLists.txt CMakeLists.txt.user CMakeLists.txt.user.8593eb5 delete.svg edit-user.png edit.svg main.cpp rbs-class-diagram.png README.md users.qrc
+        admin/admindashboard.cpp admin/admindashboard.h admin/admindashboard.ui admin/AdminDashboardController.cpp admin/AdminDashboardController.h
+        add-user.png admin-dashboard.png CMakeLists.txt CMakeLists.txt.user CMakeLists.txt.user.8593eb5 delete.svg edit-user.png edit.svg main.cpp rbs-class-diagram.png README.md users.qrc
+        db/FileManager.cpp db/FileManager.h db/users.csv
+        user_use_case/edituserdialog.cpp user_use_case/edituserdialog.h user_use_case/edituserdialog.ui user_use_case/EditUserDialogController.cpp user_use_case/EditUserDialogController.h
+        util/Constants.h
+        login/LoginController.cpp login/LoginController.h login/LoginDataModel.cpp login/LoginDataModel.h login/mainwindow.cpp login/mainwindow.h login/mainwindow.ui
+        util/Enums.cpp
+        util/Enums.h
+        menu/Menu.cpp menu/Menu.h menu/MenuController.cpp menu/MenuController.h menu/MenuItem.cpp menu/MenuItem.h menu/MenuItemAdapter.cpp menu/MenuItemAdapter.h menu/MenuItemDelegate.cpp menu/MenuItemDelegate.h menu/MenuItemDialog.cpp menu/MenuItemDialog.h menu/MenuListModel.cpp menu/MenuListModel.h menu/MenuListView.cpp menu/MenuListView.h
+        db/menuitems.csv
+        menu/mainwindow.cpp menu/mainwindow.h menu/mainwindow.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET restaurant-billing-system APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
