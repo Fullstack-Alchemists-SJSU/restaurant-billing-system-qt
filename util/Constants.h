@@ -11,7 +11,7 @@ enum class Role{
 
 class Constants{
 public:
-    inline static const QString USER_FILE = "/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/users.csv";
+    inline static const QString USER_FILE = "/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/users.csv";
     inline static const QString EDIT_SVG = ":/edit.svg";
     inline static const QString DELETE_SVG = ":/delete.svg";
 

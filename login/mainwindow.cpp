@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "../menu/MenuWindow.h"
 #include <QDebug>
 #include <QMessageBox>
 
@@ -39,11 +40,13 @@ void MainWindow::on_pushButton_clicked()
         bool loginSuccess = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
 
         if(loginSuccess){
-            adminDashboard = new AdminDashboard(this);
-            adminDashboard->setAttribute(Qt::WA_DeleteOnClose);
-            connect(adminDashboard, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
-            adminDashboard->show();
-            this->hide();
+            // adminDashboard = new AdminDashboard(this);
+            // adminDashboard->setAttribute(Qt::WA_DeleteOnClose);
+            // connect(adminDashboard, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+            // adminDashboard->show();
+            // this->hide();
+            MenuWindow* menuWindow = new MenuWindow(nullptr, this);
+            menuWindow->show();
         }else{
             QMessageBox::critical(this, "Invalid credentials", "Please enter valid username and password");
         }

@@ -1,5 +1,6 @@
 #include "MenuController.h"
 #include "MenuItemDialog.h"
+#include <QDebug>
 
 MenuController::MenuController(QObject *parent) : QObject(parent), menuModel(nullptr), menuView(nullptr) {}
 

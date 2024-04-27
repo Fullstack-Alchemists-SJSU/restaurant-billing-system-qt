@@ -60,6 +60,8 @@ else()
             ${PROJECT_SOURCES}
             users.qrc
             util/Constants.h
+            util/Enums.cpp
+            util/Enums.h
             db/FileManager.h
             db/FileManager.cpp
             login/LoginDataModel.cpp
@@ -76,6 +78,8 @@ else()
             user_use_case/EditUserDialogController.h
             user_use_case/EditUserDialogController.cpp
             user_use_case/edituserdialog.ui
+            menu/Menu.cpp menu/Menu.h menu/MenuController.cpp menu/MenuController.h menu/MenuItem.cpp menu/MenuItem.h menu/MenuItemAdapter.cpp menu/MenuItemAdapter.h menu/MenuItemDelegate.cpp menu/MenuItemDelegate.h menu/MenuItemDialog.cpp menu/MenuItemDialog.h menu/MenuListModel.cpp menu/MenuListModel.h menu/MenuListView.cpp menu/MenuListView.h
+            menu/MenuWindow.cpp menu/MenuWindow.h menu/MenuWindow.ui
         )
     endif()
 endif()

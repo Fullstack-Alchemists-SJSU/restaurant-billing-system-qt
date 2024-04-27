@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "MenuItem.h"
+#include "algorithm"
 
 class Menu {
 private:
