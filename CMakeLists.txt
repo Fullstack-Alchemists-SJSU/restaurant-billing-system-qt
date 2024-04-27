@@ -80,6 +80,16 @@ else()
             user_use_case/edituserdialog.ui
             menu/Menu.cpp menu/Menu.h menu/MenuController.cpp menu/MenuController.h menu/MenuItem.cpp menu/MenuItem.h menu/MenuItemAdapter.cpp menu/MenuItemAdapter.h menu/MenuItemDelegate.cpp menu/MenuItemDelegate.h menu/MenuItemDialog.cpp menu/MenuItemDialog.h menu/MenuListModel.cpp menu/MenuListModel.h menu/MenuListView.cpp menu/MenuListView.h
             menu/MenuWindow.cpp menu/MenuWindow.h menu/MenuWindow.ui
+            model/user/User.h
+            model/user/Admin.h
+            model/user/StaffMember.h
+            model/user/Accountant.h
+            model/user/UserFactory.h
+            model/user/UserFactory.cpp
+            db/UserManager.h
+            db/UserManager.cpp
+            admin/UserTableModelAdapter.cpp
+            admin/UserTableModelAdapter.h
         )
     endif()
 endif()

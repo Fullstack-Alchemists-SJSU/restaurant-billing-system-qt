@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 id,username,password,role
 1,shivam.hasurkar,admin@123,1
 2,vijitha.gunta,viji,2
 3,vijiadmin,viji2,1
+=======
+1,shivam.hasurkar,admin@1234,1
+>>>>>>> feat/user_factory
