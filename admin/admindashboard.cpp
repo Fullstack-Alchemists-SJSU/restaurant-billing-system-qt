@@ -21,46 +21,37 @@ void AdminDashboard::on_buttonLogout_clicked()
     emit backNavigationRequested();
 }
 
-void AdminDashboard::showUserDialog(int row){
-    int columnCount = ui->tableView->model()->columnCount() - 1; // -1 for excluding the Actions column
-    QStringList rowData;
-    if(row != -1){
-        for (int column = 0; column < columnCount; ++column) {
-            QModelIndex index = ui->tableView->model()->index(row, column);
-            QVariant data = ui->tableView->model()->data(index);
-            rowData.append(data.toString());
-        }
-    }
-    editUserDialog = new EditUserDialog(rowData, this);
+void AdminDashboard::showUserDialog(User* user = nullptr){
+    editUserDialog = new EditUserDialog(user, this);
     connect(editUserDialog, &EditUserDialog::operationFinished, this, &AdminDashboard::setupTable);
     editUserDialog->exec();
 }
 
-void AdminDashboard::editUserClicked(int row){
-    showUserDialog(row);
+void AdminDashboard::editUserClicked(User* user){
+    showUserDialog(user);
 }
 
 void AdminDashboard::setupTable(){
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    QStandardItemModel *model = controller.populateTable();
+    UserTableModelAdapter *model = controller.populateTable();
     ui->tableView->setModel(model);
 
     for(int lineIndex = 0; lineIndex < model->rowCount(); lineIndex++){
         QModelIndex index = model->index(lineIndex, Constants::ACTIONS_COLUMN_INDEX);
-        ui->tableView->setIndexWidget(index, actionsColumnWidget(this, lineIndex));
+        ui->tableView->setIndexWidget(index, actionsColumnWidget(this, this->controller.getAllUsers().at(lineIndex)));
     }
 
     ui->tableView->update();
 }
 
-void AdminDashboard::deleteUserClicked(int row){
-    controller.deleteUser(row);
+void AdminDashboard::deleteUserClicked(User* user){
+    controller.deleteUser(user);
     setupTable();
 }
 
 void AdminDashboard::on_pushButton_clicked()
 {
-    showUserDialog(-1);
+    showUserDialog();
 }
 

@@ -2,7 +2,7 @@
 #define LOGINCONTROLLER_H
 
 #include <QtCore/QString>
-#include "../db/FileManager.h"
+#include "../db/UserManager.h"
 #include "../util/Constants.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,10 +22,10 @@ enum class UserColumnIndexes{
 class LoginController{
 
 private:
-    FileManager fileManager;
+    UserManager fileManager;
 public:
     LoginController();
-    bool login(const QString &username, const QString &password);
+    User* login(const QString &username, const QString &password);
 };
 
 #endif // LOGINCONTROLLER_H
