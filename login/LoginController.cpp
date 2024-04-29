@@ -3,15 +3,15 @@
 
 LoginController::LoginController() : fileManager(){}
 
-bool LoginController::login(const QString &username, const QString &password){
+User* LoginController::login(const QString &username, const QString &password){
 
     bool isLoginSuccess = false;
 
     QList<User*> allUsers = fileManager.getAllUsers();
     for(User* user : allUsers){
         if(username.compare(user->getUsername()) == 0 && password.compare(user->getPassword()) == 0){
-            return true;
+            return user;
         }
     }
-    return false;
+    return nullptr;
 }

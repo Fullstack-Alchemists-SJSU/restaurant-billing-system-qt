@@ -25,7 +25,7 @@ private:
     UserManager fileManager;
 public:
     LoginController();
-    bool login(const QString &username, const QString &password);
+    User* login(const QString &username, const QString &password);
 };
 
 #endif // LOGINCONTROLLER_H
