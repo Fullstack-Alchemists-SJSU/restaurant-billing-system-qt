@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "../menu/MenuWindow.h"
 #include <QDebug>
 #include <QMessageBox>
 
@@ -26,8 +27,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::showMainWindow(){
     this->show();
-    disconnect(adminDashboard, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
-    adminDashboard->deleteLater();
+    if(dynamic_cast<AdminDashboard*>(nextWindow)){
+        disconnect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+    }
+    nextWindow->deleteLater();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -36,13 +39,23 @@ void MainWindow::on_pushButton_clicked()
         QMessageBox::critical(this, "Error", "Username or password cannot be empty");
         return;
     }else{
-        bool loginSuccess = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
+        User* loggedInUser = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
 
-        if(loginSuccess){
-            adminDashboard = new AdminDashboard(this);
-            adminDashboard->setAttribute(Qt::WA_DeleteOnClose);
-            connect(adminDashboard, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
-            adminDashboard->show();
+        if(loggedInUser != nullptr){
+            switch (loggedInUser->getRole()) {
+            case Role::Admin:
+                nextWindow = new AdminDashboard(this);
+                connect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+                break;
+            case Role::StaffMember:
+                nextWindow = new MenuWindow(nullptr, this);
+            case Role::Accountant:
+                //TODO: Add navigation for accountant
+            default:
+                break;
+            }
+            nextWindow->setAttribute(Qt::WA_DeleteOnClose);
+            nextWindow->show();
             this->hide();
         }else{
             QMessageBox::critical(this, "Invalid credentials", "Please enter valid username and password");

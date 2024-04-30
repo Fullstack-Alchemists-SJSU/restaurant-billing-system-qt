@@ -14,7 +14,7 @@ class EditUserDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EditUserDialog(const QStringList &row, QWidget *parent = nullptr);
+    explicit EditUserDialog(User* &user, QWidget *parent = nullptr);
     ~EditUserDialog();
 
     void populateDefaultFormValues();
@@ -35,7 +35,9 @@ private:
     Ui::EditUserDialog *ui;
     QPushButton *okButton, *cancelButton;
 
-    const QStringList &row;
+    QString newUsername, newPassword;
+    Role newRole;
+    User* &user;
     EditUserDialogController *controller;
 };
 

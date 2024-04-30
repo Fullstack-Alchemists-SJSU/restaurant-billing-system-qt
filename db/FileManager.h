@@ -14,14 +14,13 @@ QT_END_NAMESPACE
 class FileManager{
 private:
     QString fileName;
-public:
+protected:
     FileManager(const QString& filename);
     QList<QStringList> read(bool skipEmptyParts = false);
     void write(const QList<QStringList>& data);
     void appendAtEnd(QStringList newRow);
     void update(int id, const QStringList& newRow);
-    void deleteUser(int id);
-    int getNextUserId();
+    void deleteRowAtIndex(int id);
 };
 
 #endif // FILEMANAGER_H

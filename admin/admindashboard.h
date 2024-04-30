@@ -24,8 +24,8 @@ signals:
 
 private slots:
     void on_buttonLogout_clicked();
-    void editUserClicked(int row);
-    void deleteUserClicked(int row);
+    void editUserClicked(User* user);
+    void deleteUserClicked(User* user);
 
     void on_pushButton_clicked();
 
@@ -33,9 +33,10 @@ private:
     Ui::AdminDashboard *ui;
     AdminDashboardController controller;
     EditUserDialog *editUserDialog;
+    QList<User*> allUsers;
 
     void setupTable();
-    void showUserDialog(int row);
+    void showUserDialog(User* user);
 
     static QPushButton* iconButton(QString iconPath){
         QIcon icon(iconPath);
@@ -46,18 +47,18 @@ private:
         return iconPushButton;
     }
 
-    static QWidget* actionsColumnWidget(AdminDashboard* instance, int row){
+    static QWidget* actionsColumnWidget(AdminDashboard* instance, User* user){
         QWidget* containerWidget = new QWidget();
         QHBoxLayout* layout = new QHBoxLayout(containerWidget);
 
         QPushButton *editButton = iconButton(Constants::EDIT_SVG);
         connect(editButton, &QPushButton::clicked, instance, [=](){
-            instance->editUserClicked(row);
+            instance->editUserClicked(user);
         });
 
         QPushButton *deleteButton = iconButton(Constants::DELETE_SVG);
         connect(deleteButton, &QPushButton::clicked, instance, [=](){
-            instance->deleteUserClicked(row);
+            instance->deleteUserClicked(user);
         });
 
 
