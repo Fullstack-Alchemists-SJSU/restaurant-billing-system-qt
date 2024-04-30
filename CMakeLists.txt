@@ -27,46 +27,27 @@ set(PROJECT_SOURCES
         login/mainwindow.ui
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(restaurant-billing-system
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET restaurant-billing-system APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(restaurant-billing-system SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(restaurant-billing-system
-            ${PROJECT_SOURCES}
-            users.qrc
-            util/Constants.h
-            db/FileManager.h
-            db/FileManager.cpp
-            login/LoginDataModel.cpp
-            login/LoginDataModel.h
-            login/LoginController.h
-            login/LoginController.cpp
-            admin/admindashboard.h
-            admin/admindashboard.cpp
-            admin/admindashboard.ui
-            admin/AdminDashboardController.h
-            admin/AdminDashboardController.cpp
-            user_use_case/edituserdialog.h
-            user_use_case/edituserdialog.cpp
-            user_use_case/EditUserDialogController.h
-            user_use_case/EditUserDialogController.cpp
-            user_use_case/edituserdialog.ui
-        )
-    endif()
-endif()
+add_executable(restaurant-billing-system
+    ${PROJECT_SOURCES}
+    users.qrc
+    util/Constants.h
+    db/FileManager.h
+    db/FileManager.cpp
+    login/LoginDataModel.cpp
+    login/LoginDataModel.h
+    login/LoginController.h
+    login/LoginController.cpp
+    admin/admindashboard.h
+    admin/admindashboard.cpp
+    admin/admindashboard.ui
+    admin/AdminDashboardController.h
+    admin/AdminDashboardController.cpp
+    user_use_case/edituserdialog.h
+    user_use_case/edituserdialog.cpp
+    user_use_case/EditUserDialogController.h
+    user_use_case/EditUserDialogController.cpp
+    user_use_case/edituserdialog.ui
+)
 
 target_link_libraries(restaurant-billing-system PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
