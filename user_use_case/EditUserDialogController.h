@@ -2,7 +2,7 @@
 #define EDITUSERDIALOGCONTROLLER_H
 
 #include <QtCore/QStringList>
-#include "../db/FileManager.h"
+#include "../db/UserManager.h"
 #include "../util/Constants.h"
 
 QT_BEGIN_NAMESPACE
@@ -13,21 +13,21 @@ QT_END_NAMESPACE
 
 class EditUserDialogController{
 private:
-    QStringList originalRow, editedRow;
-    FileManager fileManager;
+    User* originalUser;
+    User* editedUser;
+    UserManager fileManager;
 
 public:
-    EditUserDialogController(QStringList originalRow, QStringList editedRow);
+    EditUserDialogController(User* originalUser, User* editedUser);
 
-    void setEdited(int columnIndex, QString newValue);
-    void setEdited(QStringList newRow);
-    QStringList getEdited();
+    void setEdited(User* newUser);
+    User* getEdited();
 
     bool isRowEdited();
 
     void updateUser();
     int getNextUserId();
-    void addNewUser(QStringList newUser);
+    void addNewUser();
 };
 
 #endif // EDITUSERDIALOGCONTROLLER_H

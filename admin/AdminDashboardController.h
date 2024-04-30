@@ -3,8 +3,9 @@
 
 #include<QtCore/QString>
 #include <QStandardItemModel>
-#include "../db/FileManager.h"
+#include "../db/UserManager.h"
 #include "../util/Constants.h"
+#include "UserTableModelAdapter.h"
 #include <QTableView>
 
 QT_BEGIN_NAMESPACE
@@ -15,12 +16,15 @@ QT_END_NAMESPACE
 
 class AdminDashboardController{
 private:
-    FileManager fileManager;
+    UserManager fileManager;
+    QList<User*> allUsers;
 
 public:
     AdminDashboardController();
-    QStandardItemModel* populateTable();
-    void deleteUser(int id);
+    UserTableModelAdapter* populateTable();
+    void deleteUser(User* user);
+
+    QList<User*> getAllUsers();
 };
 
 QT_END_NAMESPACE

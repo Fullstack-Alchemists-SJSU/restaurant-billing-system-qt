@@ -54,42 +54,16 @@ void FileManager::update(int id, const QStringList& newRow) {
     write(data);
 }
 
-void FileManager::deleteUser(int id) {
+void FileManager::deleteRowAtIndex(int id) {
     QList<QStringList> data = read();  // Read existing data
-    int indexToRemove = -1;
-
-    // Find the row with the matching ID
-    for (int i = 0; i < data.size(); ++i) {
-        if (!data.at(i).isEmpty() && data.at(i).first().toInt() == id) {
-            indexToRemove = i;
-            break;
-        }
-    }
 
     // Remove the row if found
-    if (indexToRemove != -1) {
-        data.removeAt(indexToRemove);
+    if (id != -1) {
+        data.removeAt(id);
         write(data);  // Write the modified data back to the file
     } else {
         qDebug() << "Row with ID" << id << "not found.";
     }
-}
-
-int FileManager::getNextUserId(){
-    QList<QStringList> data = read();
-    int maxId = 0;  // Start with a default max ID of 0
-    bool ok;
-
-    for (const QStringList& row : data) {
-        if (!row.isEmpty()) {
-            int currentId = row.first().toInt(&ok);
-            if (ok && currentId > maxId) {
-                maxId = currentId;
-            }
-        }
-    }
-
-    return maxId + 1; // + 1 for the next ID to assign to the new user
 }
 
 void FileManager::appendAtEnd(QStringList newRow){

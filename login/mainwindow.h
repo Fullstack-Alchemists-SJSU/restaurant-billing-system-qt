@@ -36,7 +36,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    AdminDashboard* adminDashboard;
+    QMainWindow* nextWindow;
     LoginDataModel loginDataModel;
     LoginController loginController;
 };
