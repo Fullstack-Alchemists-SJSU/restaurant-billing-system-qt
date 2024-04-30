@@ -1,26 +1,41 @@
+// Bill.cpp
 #include "Bill.h"
-#include <iostream>
-// If you have other necessary includes, add them here
+#include "MenuItem.h" // Include other necessary headers
 
-// Since we don't have an Order class, we'll just define the methods without it.
+// Definitions of OrderItem member functions
+OrderItem::OrderItem(MenuItem* item, int qty) : menuItem(item), quantity(qty) {}
+
+void OrderItem::updateQuantity(int qty) {
+    quantity = qty;
+    std::cout << "Quantity updated to " << quantity << std::endl;
+}
+
+// Definitions of Order member functions
+Order::Order(int id) : orderID(id), totalPrice(0) {}
+
+void Order::addItem(OrderItem item) {
+    items.push_back(item);
+}
+
+void Order::calculateTotal() {
+    totalPrice = 0;
+    for (const auto& item : items) {
+        totalPrice += item.menuItem->price * item.quantity; // Assumes price is a member of MenuItem
+    }
+}
+
+// Definitions of Bill member functions
+Bill::Bill(int id, Order* ord, const std::string& billDate)
+    : billID(id), order(ord), date(billDate), totalAmount(0) {}
 
 void Bill::generateBill() {
-    // Implementation of bill generation
-    // This function should interact with the Order class to generate the bill details.
-    // Since we don't have Order class, we'll leave it as a placeholder.
-
-    // Example placeholder code:
-    // totalAmount = order.calculateTotal(); // Where 'calculateTotal' would be a method of the Order class
+    order->calculateTotal();
+    totalAmount = order->totalPrice;
+    std::cout << "Bill is generated." << std::endl;
 }
 
 void Bill::printBill() {
-    // Print bill details to the console
-    std::cout << "Bill ID: " << billID << "\n";
-    std::cout << "Date: " << date << "\n";
-    std::cout << "Total Amount: $" << totalAmount << "\n";
-    // If Order class was available, we would also print details of the Order here.
+    std::cout << "Bill ID: " << billID << std::endl;
+    std::cout << "Date: " << date << std::endl;
+    std::cout << "Total amount: " << totalAmount << std::endl;
 }
-
-// The generateBill method would normally fetch the total from the Order object.
-// The printBill method prints out the bill's details. Once you have the Order class,
-// you can include it to make these methods work as intended.
