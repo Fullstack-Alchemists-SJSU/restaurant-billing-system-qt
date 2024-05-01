@@ -26,9 +26,6 @@ void Bill::printBill() const {
         std::cout << "Bill ID: " << billID << std::endl;
         std::cout << "Date: " << date << std::endl;
         std::cout << "Total amount: $" << totalAmount << std::endl;
-        std::cout << "Order ID: " << order->getOrderID() << std::endl;
-        std::cout << "Order Status: " << order->getStatus() << std::endl;
-    } else {
         std::cerr << "Order pointer is null. Cannot print bill." << std::endl;
     }
 }

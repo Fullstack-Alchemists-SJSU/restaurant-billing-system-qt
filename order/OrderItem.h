@@ -21,6 +21,8 @@ public:
     double getUnitPrice() const;
     int getQuantity() const;
     double getTotalPrice() const;
+    void print() const;
+
 
 private:
     std::string menuItemName; // Name of the menu item

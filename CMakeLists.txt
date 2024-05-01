@@ -47,8 +47,6 @@ add_executable(restaurant-billing-system
     admin/AdminDashboardController.h
     admin/AdminDashboardController.cpp
     admin/UserTableModelAdapter.cpp
-    bill/Bill.cpp
-    bill/Bill.h
     menu/Menu.cpp
     menu/MenuItem.cpp
     menu/MenuWindow.cpp
@@ -69,7 +67,12 @@ add_executable(restaurant-billing-system
     order/OrderItem.cpp
     payment/Payment.h
     payment/Payment.cpp
-    bill/BillComponent.cpp
+
+    bill/Bill.h
+    bill/BillInterface.h
+    bill/BillDecorator.h
+    bill/PartyDiscountDecorator.h
+    bill/CouponDiscountDecorator.h
 )
 
 target_link_libraries(restaurant-billing-system PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

@@ -1,6 +1,7 @@
 #include "OrderItem.h"
 #include "Order.h""
 #include <stdexcept> // For std::invalid_argument
+#include <iostream>
 
 // Constructor with initialization list
 OrderItem::OrderItem(const std::string &name, double price, int qty)
@@ -54,4 +55,7 @@ int OrderItem::getQuantity() const
     return quantity;
 }
 
+void OrderItem::print() const {
+    std::cout << menuItemName << " - $" << getTotalPrice() << " x" << quantity << std::endl;
+}
 
