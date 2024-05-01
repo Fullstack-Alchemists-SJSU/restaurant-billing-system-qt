@@ -35,7 +35,7 @@ void MenuController::handleItemDeletion(const QString &itemName) {
     if (menuModel) {
         menuModel->removeItem(itemName.toStdString());
         // Update the CSV file
-        saveMenuItemsToFile("/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/menuitems.csv");
+        saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
     }
 }
 
@@ -44,7 +44,7 @@ void MenuController::addItem() {
     if (dialog.exec() == QDialog::Accepted) {
         MenuItem newItem = dialog.getItem();
         menuModel->addItem(newItem);
-        saveMenuItemsToFile("/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/menuitems.csv");
+        saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
     }
 }
 

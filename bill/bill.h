@@ -5,42 +5,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "../order/Order.h"
 
-// Dummy classes till the real classes are added
-class Order;
-class MenuItem;
-
-class OrderItem {
-public:
-    MenuItem* menuItem;
-    int quantity;
-
-    OrderItem(MenuItem* item, int qty);
-    void updateQuantity(int qty);
-};
-
-class Order {
-public:
-    int orderID;
-    std::vector<OrderItem> items;
-    std::string status;
-    double totalPrice;
-
-    Order(int id);
-    void addItem(OrderItem item);
-    void calculateTotal();
-};
 
 class Bill {
 public:
-    int billID;
-    Order* order;
-    std::string date;
-    double totalAmount;
-
+    // Constructor to initialize a Bill object
     Bill(int id, Order* ord, const std::string& billDate);
+
+    // Generates a bill by calculating the total from the Order object
     void generateBill();
-    void printBill();
+
+    // Prints the bill details
+    void printBill() const;
+
+private:
+    int billID;                  // Unique identifier for the bill
+    Order* order;                // Pointer to the associated order
+    std::string date;            // Date when the bill was generated
+    double totalAmount;          // Total amount of the bill
 };
 
 #endif // BILL_H

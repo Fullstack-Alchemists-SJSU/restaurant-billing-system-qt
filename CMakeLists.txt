@@ -18,10 +18,12 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/login
     ${PROJECT_SOURCE_DIR}/user_use_case
     ${PROJECT_SOURCE_DIR}/user_use_util
+    ${PROJECT_SOURCE_DIR}/util
 )
 
 set(PROJECT_SOURCES
         main.cpp
+        util/Enums.cpp
         login/mainwindow.cpp
         login/mainwindow.h
         login/mainwindow.ui
@@ -33,6 +35,8 @@ add_executable(restaurant-billing-system
     util/Constants.h
     db/FileManager.h
     db/FileManager.cpp
+    db/UserManager.cpp
+    db/menuitems.csv
     login/LoginDataModel.cpp
     login/LoginDataModel.h
     login/LoginController.h
@@ -42,11 +46,30 @@ add_executable(restaurant-billing-system
     admin/admindashboard.ui
     admin/AdminDashboardController.h
     admin/AdminDashboardController.cpp
+    admin/UserTableModelAdapter.cpp
+    bill/Bill.cpp
+    bill/Bill.h
+    menu/Menu.cpp
+    menu/MenuItem.cpp
+    menu/MenuWindow.cpp
+    menu/MenuListView.cpp
+    menu/MenuListModel.cpp
+    menu/MenuItemDelegate.cpp
+    order/Order.h
+    order/Order.cpp
+    order/OrderItem.h
+    order/OrderItem.cpp
+    model/user/UserFactory.cpp
     user_use_case/edituserdialog.h
     user_use_case/edituserdialog.cpp
     user_use_case/EditUserDialogController.h
     user_use_case/EditUserDialogController.cpp
     user_use_case/edituserdialog.ui
+    order/Order.cpp
+    order/OrderItem.cpp
+    payment/Payment.h
+    payment/Payment.cpp
+    bill/BillComponent.cpp
 )
 
 target_link_libraries(restaurant-billing-system PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

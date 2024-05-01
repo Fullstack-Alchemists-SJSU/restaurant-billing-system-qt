@@ -4,6 +4,11 @@
 #include <QDebug>
 #include <QMessageBox>
 
+
+//For test
+#include <iostream>
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -57,6 +62,8 @@ void MainWindow::on_pushButton_clicked()
             nextWindow->setAttribute(Qt::WA_DeleteOnClose);
             nextWindow->show();
             this->hide();
+            // Print statements  for test
+            std::cout << "Started" << std::endl;
         }else{
             QMessageBox::critical(this, "Invalid credentials", "Please enter valid username and password");
         }
