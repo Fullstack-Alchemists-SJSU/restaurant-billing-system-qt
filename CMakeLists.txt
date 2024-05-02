@@ -18,12 +18,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/login
     ${PROJECT_SOURCE_DIR}/user_use_case
     ${PROJECT_SOURCE_DIR}/user_use_util
-<<<<<<< Updated upstream
     ${PROJECT_SOURCE_DIR}/order
-=======
-    ${PROJECT_SOURCE_DIR}/model
-    ${PROJECT_SOURCE_DIR}/menu
->>>>>>> Stashed changes
 )
 
 set(PROJECT_SOURCES
@@ -45,11 +40,6 @@ add_executable(restaurant-billing-system
     db/FileManager.cpp
     db/UserManager.h
     db/UserManager.cpp
-<<<<<<< Updated upstream
-=======
-    db/users.csv
-    db/menuitems.csv
->>>>>>> Stashed changes
     login/LoginDataModel.cpp
     login/LoginDataModel.h
     login/LoginController.h
@@ -66,21 +56,12 @@ add_executable(restaurant-billing-system
     user_use_case/EditUserDialogController.h
     user_use_case/EditUserDialogController.cpp
     user_use_case/edituserdialog.ui
-<<<<<<< Updated upstream
     model/user/User.h
     model/user/Admin.h
     model/user/StaffMember.h
     model/user/Accountant.h
     model/user/UserFactory.h
     model/user/UserFactory.cpp
-=======
-    model/user/Accountant.h
-    model/user/Admin.h
-    model/user/StaffMember.h
-    model/user/User.h
-    model/user/UserFactory.cpp
-    model/user/UserFactory.h
->>>>>>> Stashed changes
     menu/Menu.cpp
     menu/Menu.h
     menu/MenuController.cpp
@@ -100,7 +81,6 @@ add_executable(restaurant-billing-system
     menu/MenuWindow.cpp
     menu/MenuWindow.h
     menu/MenuWindow.ui
-<<<<<<< Updated upstream
     order/controllers//OrderController.cpp
     order/controllers//OrderController.h
     order/facade/OrderManagementFacade.cpp
@@ -121,8 +101,6 @@ add_executable(restaurant-billing-system
     order/orderwindow.h order/orderwindow.cpp order/orderwindow.ui
     order/orderdetails.h order/orderdetails.cpp order/orderdetails.ui
     order/orderdetails.h order/orderdetails.cpp order/orderdetails.ui
-=======
->>>>>>> Stashed changes
 )
 
 target_link_libraries(restaurant-billing-system PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
