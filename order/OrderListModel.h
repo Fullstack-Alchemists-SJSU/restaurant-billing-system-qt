@@ -2,7 +2,7 @@
 #define ORDERLISTMODEL_H
 
 #include <QAbstractListModel>
-#include "Order.h"
+#include "./models/Order.h"
 
 class OrderListModel : public QAbstractListModel
 {

@@ -1,12 +1,13 @@
 #ifndef ORDERLISTVIEW_H
 #define ORDERLISTVIEW_H
 
+#include <QMainWindow>
 #include <QWidget>
 #include <QListView>
 #include "OrderListModel.h"
-#include "Order.h"
+#include "./models/Order.h"
 
-class OrderListView : public QWidget
+class OrderListView : public QMainWindow
 {
     Q_OBJECT
 public:

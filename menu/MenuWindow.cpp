@@ -3,6 +3,7 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+#include "MenuController.h"
 
 MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
     : QMainWindow(parent), menuListView(new MenuListView(this)) {
@@ -30,4 +31,11 @@ MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
 
     // Set the menu bar
     setMenuBar(menuBar);
+
+    MenuListView view;
+    MenuController controller;
+
+    controller.setMenuModel(menu);
+    controller.setView(menuListView);
+    controller.loadMenuItemsFromFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
 }

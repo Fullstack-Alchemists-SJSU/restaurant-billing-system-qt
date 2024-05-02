@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QPushButton>
 
-OrderListView::OrderListView(QWidget *parent) : QWidget(parent), listView(new QListView(this))
+OrderListView::OrderListView(QWidget *parent) : QMainWindow(parent), listView(new QListView(this))
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     QLabel *label = new QLabel(tr("Order Management"), this);

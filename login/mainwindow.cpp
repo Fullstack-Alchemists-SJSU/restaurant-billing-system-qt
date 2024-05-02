@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "../menu/MenuWindow.h"
+#include "../order/orderwindow.h"
 #include <QDebug>
 #include <QMessageBox>
 
@@ -27,20 +28,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::showMainWindow(){
     this->show();
-    if(dynamic_cast<AdminDashboard*>(nextWindow)){
-        disconnect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+    if(nextWindow != nullptr){
+        if(dynamic_cast<AdminDashboard*>(nextWindow)){
+            disconnect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+        }
+        nextWindow->deleteLater();
     }
-    nextWindow->deleteLater();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    if(loginDataModel.getUsername().isEmpty() || loginDataModel.getPassword().isEmpty()){
-        QMessageBox::critical(this, "Error", "Username or password cannot be empty");
-        return;
-    }else{
-        User* loggedInUser = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
+    // if(loginDataModel.getUsername().isEmpty() || loginDataModel.getPassword().isEmpty()){
+    //     QMessageBox::critical(this, "Error", "Username or password cannot be empty");
+    //     return;
+    // }else{
+        //User* loggedInUser = loginController.login(loginDataModel.getUsername(), loginDataModel.getPassword());
 
+        User* loggedInUser = loginController.login("vijitha.gunta", "viji");
         if(loggedInUser != nullptr){
             switch (loggedInUser->getRole()) {
             case Role::Admin:
@@ -48,7 +52,9 @@ void MainWindow::on_pushButton_clicked()
                 connect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
                 break;
             case Role::StaffMember:
-                nextWindow = new MenuWindow(nullptr, this);
+
+                //nextWindow = new MenuWindow(nullptr, this);
+                nextWindow = new OrderWindow(this);
             case Role::Accountant:
                 //TODO: Add navigation for accountant
             default:
@@ -60,6 +66,6 @@ void MainWindow::on_pushButton_clicked()
         }else{
             QMessageBox::critical(this, "Invalid credentials", "Please enter valid username and password");
         }
-    }
+    //}
 }
 

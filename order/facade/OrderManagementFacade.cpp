@@ -32,3 +32,7 @@ std::vector<std::string> OrderManagementFacade::getOrderSummaries() const
 {
     return orderController.getOrderSummaries();
 }
+
+std::vector<Order*> OrderManagementFacade::getOrders(){
+    return orderController.getOrders();
+}

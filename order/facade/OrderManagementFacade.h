@@ -1,8 +1,9 @@
 #ifndef ORDERMANAGEMENTFACADE_H
 #define ORDERMANAGEMENTFACADE_H
 
-#include "OrderController.h"
-#include "OrderItem.h"
+#include "./models/Order.h"
+#include "./models/OrderItem.h"
+#include "./controllers/OrderController.h"
 
 class OrderManagementFacade
 {
@@ -14,6 +15,7 @@ public:
     void removeItemFromOrder(int orderID, const std::string &itemName);
     void updateItemInOrder(int orderID, const std::string &itemName, int newQuantity);
     void closeOrder(int orderID);
+    std::vector<Order*> getOrders();
     std::vector<std::string> getOrderSummaries() const;
 
 private:
