@@ -2,6 +2,7 @@
 #define MENUWINDOW_H
 
 #include <QMainWindow>
+#include "MenuController.h"
 #include "MenuListView.h"
 #include "Menu.h"
 
@@ -11,6 +12,7 @@ public:
     explicit MenuWindow(Menu* menu, QWidget *parent = nullptr);
 private:
     MenuListView* menuListView;
+    MenuController* menuController;
 };
 
 #endif // MENUWINDOW_H
