@@ -22,13 +22,11 @@ include_directories(
 )
 
 set(PROJECT_SOURCES
-    main.cpp
-    login/mainwindow.cpp
-    login/mainwindow.h
-    login/mainwindow.ui
+        main.cpp
+        login/mainwindow.cpp
+        login/mainwindow.h
+        login/mainwindow.ui
 )
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -c")
 
 add_executable(restaurant-billing-system
     ${PROJECT_SOURCES}
