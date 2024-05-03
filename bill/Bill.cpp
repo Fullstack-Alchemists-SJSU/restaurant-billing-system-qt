@@ -10,6 +10,7 @@ Bill::Bill(int id, Order* ord, const std::string& billDate)
     : billID(id), order(ord), date(billDate), totalAmount(0.0) {}
 
 
+
 // Generates a bill by calculating total from the Order object
 void Bill::generateBill() {
     if (order) {
