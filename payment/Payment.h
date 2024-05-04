@@ -1,34 +1,51 @@
+// Payment.h
 #ifndef PAYMENT_H
 #define PAYMENT_H
 
 #include <string>
-#include "../bill/Bill.h" // Ensure this include is correct based on your project structure
+#include "../bill/Bill.h"  // Assuming Bill is a class defined in another header
 
 class Payment {
 public:
-    Payment(int id, double amount, const std::string& method, const std::string& date, Bill* bill);
+    enum class PaymentMethod {
+        CARD, CASH
+    };
 
-    // Method to process the payment
-    void processPayment();
+    // Constructor
+    Payment(int paymentID, Bill* bill, double amount, PaymentMethod method, const std::string& date);
 
-    // Getters and setters for private members
+    // Destructor
+    ~Payment();
+
+    // Getters and setters
     int getPaymentID() const;
-    double getAmount() const;
-    std::string getMethod() const;
-    std::string getDate() const;
-    Bill* getBill() const;
+    void setPaymentID(int paymentID);
 
-    void setAmount(double amount);
-    void setMethod(const std::string& method);
-    void setDate(const std::string& date);
+    Bill* getBill() const;
     void setBill(Bill* bill);
 
+    double getAmount() const;
+    void setAmount(double amount);
+
+    PaymentMethod getMethod() const;
+    void setMethod(PaymentMethod method);
+
+    std::string getDate() const;
+    void setDate(const std::string& date);
+
+    // Payment processing
+    void processPayment() const;
+
 private:
-    int paymentID;     // Unique identifier for the payment
-    double amount;     // Amount of the payment
-    std::string method; // Payment method (e.g., cash, credit card)
-    std::string date;  // Date of the payment
-    Bill* bill;        // Pointer to the associated Bill
+    int paymentID;
+    Bill* bill;
+    double amount;
+    PaymentMethod method;
+    std::string date;
+
+    // Private methods for different payment methods
+    void processCardPayment() const;
+    void processCashPayment() const;
 };
 
-#endif // PAYMENT_H
+#endif  // PAYMENT_H

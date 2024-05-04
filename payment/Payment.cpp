@@ -1,34 +1,48 @@
-#ifndef PAYMENT_H
-#define PAYMENT_H
+// Payment.cpp
+#include "Payment.h"
+#include <iostream>
 
-#include <string>
-#include "../bill/Bill.h" // Ensure this include is correct based on your project structure
+// Constructor
+Payment::Payment(int paymentID, Bill* bill, double amount, PaymentMethod method, const std::string& date)
+    : paymentID(paymentID), bill(bill), amount(amount), method(method), date(date) {}
 
-class Payment {
-public:
-    Payment(int id, double amount, const std::string& method, const std::string& date, Bill* bill);
+// Destructor
+Payment::~Payment() {}
 
-    // Method to process the payment
-    void processPayment();
+// Getters and setters implementations
+int Payment::getPaymentID() const { return paymentID; }
+void Payment::setPaymentID(int paymentID) { this->paymentID = paymentID; }
 
-    // Getters and setters for private members
-    int getPaymentID() const;
-    double getAmount() const;
-    std::string getMethod() const;
-    std::string getDate() const;
-    Bill* getBill() const;
+Bill* Payment::getBill() const { return bill; }
+void Payment::setBill(Bill* bill) { this->bill = bill; }
 
-    void setAmount(double amount);
-    void setMethod(const std::string& method);
-    void setDate(const std::string& date);
-    void setBill(Bill* bill);
+double Payment::getAmount() const { return amount; }
+void Payment::setAmount(double amount) { this->amount = amount; }
 
-private:
-    int paymentID;     // Unique identifier for the payment
-    double amount;     // Amount of the payment
-    std::string method; // Payment method (e.g., cash, credit card)
-    std::string date;  // Date of the payment
-    Bill* bill;        // Pointer to the associated Bill
-};
+Payment::PaymentMethod Payment::getMethod() const { return method; }
+void Payment::setMethod(PaymentMethod method) { this->method = method; }
 
-#endif // PAYMENT_H
+std::string Payment::getDate() const { return date; }
+void Payment::setDate(const std::string& date) { this->date = date; }
+
+// Payment processing methods
+void Payment::processPayment() const {
+    switch (method) {
+    case PaymentMethod::CARD:
+        processCardPayment();
+        break;
+    case PaymentMethod::CASH:
+        processCashPayment();
+        break;
+    }
+}
+
+void Payment::processCardPayment() const {
+    std::cout << "Processing card payment ID " << paymentID << " for amount $" << amount << std::endl;
+    // Additional card processing logic here
+}
+
+void Payment::processCashPayment() const {
+    std::cout << "Processing cash payment ID " << paymentID << " for amount $" << amount << std::endl;
+    // Additional cash processing logic here
+}
