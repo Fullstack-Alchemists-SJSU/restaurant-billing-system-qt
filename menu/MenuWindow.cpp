@@ -11,7 +11,7 @@ MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
 
     menuController->setMenuModel(menu);
     menuController->setView(menuListView);
-    menuController->loadMenuItemsFromFile("/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/menuitems.csv");
+    menuController->loadMenuItemsFromFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
 
     // Create a menu bar and add items
     QMenuBar *menuBar = new QMenuBar(this);
