@@ -6,8 +6,12 @@
 #include "MenuController.h"
 
 MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
-    : QMainWindow(parent), menuListView(new MenuListView(this)) {
+    : QMainWindow(parent), menuListView(new MenuListView(this)), menuController(new MenuController(this)) {
     setWindowTitle(tr("Menu Management"));
+
+    menuController->setMenuModel(menu);
+    menuController->setView(menuListView);
+    menuController->loadMenuItemsFromFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
 
     // Create a menu bar and add items
     QMenuBar *menuBar = new QMenuBar(this);
@@ -31,11 +35,4 @@ MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
 
     // Set the menu bar
     setMenuBar(menuBar);
-
-    MenuListView view;
-    MenuController controller;
-
-    controller.setMenuModel(menu);
-    controller.setView(menuListView);
-    controller.loadMenuItemsFromFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
 }

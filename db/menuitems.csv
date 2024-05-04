@@ -2,3 +2,4 @@ Pizza,9.99,,Delicious pizza2,MainCourse,"Vegan;GlutenFree;NutFree;DairyFree;Vege
 Steak,25.99,,Grilled steak,MainCourse,"",OutOfStock
 Soda,1.99,/path/to/soda.jpg,Carbonated soft drink,Drink,"",Available
 test,1,,test,SideDish,"DairyFree",Seasonal
+aditya test 1,10,,asd,Dessert,"Vegan;GlutenFree;NutFree",Available
