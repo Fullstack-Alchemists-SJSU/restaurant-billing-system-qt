@@ -1,26 +1,21 @@
 #ifndef ORDERCONTROLLER_H
 #define ORDERCONTROLLER_H
 
-#include "./models/Order.h"
-#include <vector>
+#include "Order.h"
 
 class OrderController
 {
 public:
     OrderController();
 
-    int createOrder();
-    void addItemToOrder(int orderID, const OrderItem &item);
-    void removeItemFromOrder(int orderID, const std::string &itemName);
-    void updateItemInOrder(int orderID, const std::string &itemName, int newQuantity);
-    void closeOrder(int orderID);
-    std::vector<Order*> getOrders();
-    std::vector<std::string> getOrderSummaries() const;
+    void setOrder(Order *order);
+    void addItemToOrder(MenuItem *menuItem, int quantity);
+    void removeItemFromOrder(const std::string &menuItemName);
+    void updateItemInOrder(const std::string &menuItemName, int newQuantity);
+    void closeOrder();
 
 private:
-    std::vector<Order*> orders; // List of all orders managed by the controller
-
-    Order* findOrder(int orderID);
+    Order *currentOrder; // Pointer to the current order being managed
 };
 
 #endif // ORDERCONTROLLER_H

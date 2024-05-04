@@ -1,36 +1,43 @@
 #include "Order.h"
 #include <algorithm>
-#include <numeric>
-#include <stdexcept>
 
-int Order::nextOrderID = 1; // Static ID initialization
+Order::Order(int id) : orderID(id), status("Open") {}
 
-Order::Order() : orderID(nextOrderID++), status("Open"), totalPrice(0.0) {}
-
-void Order::addItem(const OrderItem &item)
+void Order::addItem(OrderItem *item)
 {
-    items.push_back(item);
-    calculateTotal();
+    if (status != "Closed")
+    {
+        items.push_back(item);
+    }
 }
 
-void Order::removeItem(const std::string &itemName)
+void Order::removeItem(const std::string &menuItemName)
 {
-    auto it = std::remove_if(items.begin(), items.end(), [&itemName](const OrderItem &item)
-                             { return item.getMenuItemName() == itemName; });
-    if (it == items.end())
-        throw std::runtime_error("Item not found.");
-    items.erase(it);
-    calculateTotal();
+    if (status != "Closed")
+    {
+        items.erase(std::remove_if(items.begin(), items.end(),
+                                   [&menuItemName](OrderItem *item)
+                                   {
+                                       return item->getMenuItemName() == menuItemName;
+                                   }),
+                    items.end());
+    }
 }
 
-void Order::updateItem(const std::string &itemName, int newQuantity)
+void Order::updateItem(const std::string &menuItemName, int quantity)
 {
-    auto it = std::find_if(items.begin(), items.end(), [&itemName](const OrderItem &item)
-                           { return item.getMenuItemName() == itemName; });
-    if (it == items.end())
-        throw std::runtime_error("Item not found.");
-    it->updateQuantity(newQuantity);
-    calculateTotal();
+    if (status != "Closed")
+    {
+        auto it = std::find_if(items.begin(), items.end(),
+                               [&menuItemName](OrderItem *item)
+                               {
+                                   return item->getMenuItemName() == menuItemName;
+                               });
+        if (it != items.end())
+        {
+            (*it)->updateQuantity(quantity);
+        }
+    }
 }
 
 void Order::closeOrder()
@@ -38,19 +45,12 @@ void Order::closeOrder()
     status = "Closed";
 }
 
-double Order::calculateTotal()
+int Order::getOrderID() const
 {
-    totalPrice = std::accumulate(items.begin(), items.end(), 0.0, [](double sum, const OrderItem &item)
-                                 { return sum + item.getTotalPrice(); });
-    return totalPrice;
+    return orderID;
 }
 
-// New getters and setters
-void Order::setOrderID(int id) { orderID = id; }
-void Order::setStatus(const std::string &newStatus) { status = newStatus; }
-void Order::setTotalPrice(double price) { totalPrice = price; }
-const std::vector<OrderItem> &Order::getItems() const { return items; }
-
-int Order::getOrderID() const { return orderID; }
-std::string Order::getStatus() const { return status; }
-double Order::getTotalPrice() const { return totalPrice; }
+std::string Order::getStatus() const
+{
+    return status;
+}

@@ -1,38 +1,52 @@
 #include "OrderManagementFacade.h"
+#include <iostream>
 
-OrderManagementFacade::OrderManagementFacade() : orderController() {}
+OrderManagementFacade::OrderManagementFacade(Menu *menu) : nextOrderId(1), menu(menu) {}
 
 int OrderManagementFacade::createOrder()
 {
-    return orderController.createOrder();
+    Order *newOrder = new Order(nextOrderId++);
+    orders[newOrder->getOrderID()] = newOrder;
+    orderController.setOrder(newOrder);
+    return newOrder->getOrderID();
 }
 
-void OrderManagementFacade::addItemToOrder(int orderID, const std::string &itemName, double price, int quantity)
+void OrderManagementFacade::addItemToOrder(int orderId, const std::string &menuItemName, int quantity)
 {
-    OrderItem item(itemName, price, quantity);
-    orderController.addItemToOrder(orderID, item);
+    if (orders.find(orderId) != orders.end() && menu)
+    {
+        auto it = menu->findItemByName(menuItemName);
+        if (it != menu->getMenuItems().end())
+        {
+            orderController.addItemToOrder(&(*it), quantity);
+        }
+        else
+        {
+            std::cerr << "MenuItem not found: " << menuItemName << std::endl;
+        }
+    }
 }
 
-void OrderManagementFacade::removeItemFromOrder(int orderID, const std::string &itemName)
+void OrderManagementFacade::removeItemFromOrder(int orderId, const std::string &menuItemName)
 {
-    orderController.removeItemFromOrder(orderID, itemName);
+    if (orders.find(orderId) != orders.end())
+    {
+        orderController.removeItemFromOrder(menuItemName);
+    }
 }
 
-void OrderManagementFacade::updateItemInOrder(int orderID, const std::string &itemName, int newQuantity)
+void OrderManagementFacade::updateItemInOrder(int orderId, const std::string &menuItemName, int newQuantity)
 {
-    orderController.updateItemInOrder(orderID, itemName, newQuantity);
+    if (orders.find(orderId) != orders.end())
+    {
+        orderController.updateItemInOrder(menuItemName, newQuantity);
+    }
 }
 
-void OrderManagementFacade::closeOrder(int orderID)
+void OrderManagementFacade::closeOrder(int orderId)
 {
-    orderController.closeOrder(orderID);
-}
-
-std::vector<std::string> OrderManagementFacade::getOrderSummaries() const
-{
-    return orderController.getOrderSummaries();
-}
-
-std::vector<Order*> OrderManagementFacade::getOrders(){
-    return orderController.getOrders();
+    if (orders.find(orderId) != orders.end())
+    {
+        orderController.closeOrder();
+    }
 }

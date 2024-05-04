@@ -1,54 +1,39 @@
 #include "OrderItem.h"
-#include <stdexcept> // For std::invalid_argument
+#include <stdexcept>
 
-// Constructor with initialization list
-OrderItem::OrderItem(const std::string &name, double price, int qty)
+OrderItem::OrderItem(MenuItem *menuItem, int quantity)
+    : menuItem(menuItem), quantity(quantity)
 {
-    if (name.empty())
+    if (!menuItem)
     {
-        throw std::invalid_argument("Item name cannot be empty.");
+        throw std::invalid_argument("MenuItem cannot be null.");
     }
-    if (price <= 0)
+    if (quantity <= 0)
     {
-        throw std::invalid_argument("Price must be greater than zero.");
+        throw std::invalid_argument("Quantity must be greater than zero.");
     }
-    if (qty < 0)
-    {
-        throw std::invalid_argument("Quantity cannot be negative.");
-    }
-    menuItemName = name;
-    unitPrice = price;
-    quantity = qty;
 }
 
-// Method to update the quantity of the order item
 void OrderItem::updateQuantity(int newQuantity)
 {
-    if (newQuantity < 0)
+    if (newQuantity <= 0)
     {
-        throw std::invalid_argument("Quantity cannot be negative.");
+        throw std::invalid_argument("Quantity must be greater than zero.");
     }
     quantity = newQuantity;
 }
 
-// Getter for the item's total price
-double OrderItem::getTotalPrice() const
+MenuItem *OrderItem::getMenuItem() const
 {
-    return unitPrice * quantity;
-}
-
-// Additional getters
-std::string OrderItem::getMenuItemName() const
-{
-    return menuItemName;
-}
-
-double OrderItem::getUnitPrice() const
-{
-    return unitPrice;
+    return menuItem;
 }
 
 int OrderItem::getQuantity() const
 {
     return quantity;
+}
+
+std::string OrderItem::getMenuItemName() const
+{
+    return menuItem->getName();
 }

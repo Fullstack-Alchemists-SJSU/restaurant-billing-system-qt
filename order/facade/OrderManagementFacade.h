@@ -1,25 +1,27 @@
 #ifndef ORDERMANAGEMENTFACADE_H
 #define ORDERMANAGEMENTFACADE_H
 
-#include "./models/Order.h"
-#include "./models/OrderItem.h"
-#include "./controllers/OrderController.h"
+#include "OrderController.h"
+#include "../menu/Menu.h"
+
+#include <map>
 
 class OrderManagementFacade
 {
 public:
-    OrderManagementFacade();
+    OrderManagementFacade(Menu *menu); // Constructor now takes a Menu pointer
 
     int createOrder();
-    void addItemToOrder(int orderID, const std::string &itemName, double price, int quantity);
-    void removeItemFromOrder(int orderID, const std::string &itemName);
-    void updateItemInOrder(int orderID, const std::string &itemName, int newQuantity);
-    void closeOrder(int orderID);
-    std::vector<Order*> getOrders();
-    std::vector<std::string> getOrderSummaries() const;
+    void addItemToOrder(int orderId, const std::string &menuItemName, int quantity);
+    void removeItemFromOrder(int orderId, const std::string &menuItemName);
+    void updateItemInOrder(int orderId, const std::string &menuItemName, int newQuantity);
+    void closeOrder(int orderId);
 
 private:
-    OrderController orderController; // The OrderController instance to handle order management
+    OrderController orderController;
+    std::map<int, Order *> orders;
+    int nextOrderId;
+    Menu *menu; // Pointer to a Menu object
 };
 
 #endif // ORDERMANAGEMENTFACADE_H

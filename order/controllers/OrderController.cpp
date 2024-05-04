@@ -1,66 +1,58 @@
 #include "OrderController.h"
-#include <algorithm>
-#include <stdexcept>
-#include <sstream>
+#include <iostream>
 
-OrderController::OrderController() {}
+OrderController::OrderController() : currentOrder(nullptr) {}
 
-int OrderController::createOrder()
+void OrderController::setOrder(Order *order)
 {
-    orders.emplace_back(new Order());
-    return orders.back()->getOrderID();
+    currentOrder = order;
 }
 
-void OrderController::addItemToOrder(int orderID, const OrderItem &item)
+void OrderController::addItemToOrder(MenuItem *menuItem, int quantity)
 {
-    Order* it = findOrder(orderID);
-    it->addItem(item);
-}
-
-void OrderController::removeItemFromOrder(int orderID, const std::string &itemName)
-{
-    Order* it = findOrder(orderID);
-    it->removeItem(itemName);
-}
-
-void OrderController::updateItemInOrder(int orderID, const std::string &itemName, int newQuantity)
-{
-    Order* it = findOrder(orderID);
-    it->updateItem(itemName, newQuantity);
-}
-
-void OrderController::closeOrder(int orderID)
-{
-    Order* it = findOrder(orderID);
-    it->closeOrder();
-}
-
-std::vector<std::string> OrderController::getOrderSummaries() const
-{
-    std::vector<std::string> summaries;
-    for (const Order *order : orders)
+    if (currentOrder && currentOrder->getStatus() == "Open")
     {
-        std::stringstream ss;
-        ss << "Order ID: " << order->getOrderID()
-           << ", Status: " << order->getStatus()
-           << ", Total: $" << order->getTotalPrice();
-        summaries.push_back(ss.str());
+        OrderItem *newOrderItem = new OrderItem(menuItem, quantity);
+        currentOrder->addItem(newOrderItem);
     }
-    return summaries;
+    else
+    {
+        std::cerr << "Attempt to add item to a closed or undefined order." << std::endl;
+    }
 }
 
-Order* OrderController::findOrder(int orderID)
+void OrderController::removeItemFromOrder(const std::string &menuItemName)
 {
-
-    for(Order* order : orders){
-        if(order->getOrderID() == orderID){
-            return order;
-        }
+    if (currentOrder && currentOrder->getStatus() == "Open")
+    {
+        currentOrder->removeItem(menuItemName);
     }
-
-    return nullptr;
+    else
+    {
+        std::cerr << "Attempt to remove item from a closed or undefined order." << std::endl;
+    }
 }
 
-std::vector<Order*> OrderController::getOrders(){
-    return orders;
+void OrderController::updateItemInOrder(const std::string &menuItemName, int newQuantity)
+{
+    if (currentOrder && currentOrder->getStatus() == "Open")
+    {
+        currentOrder->updateItem(menuItemName, newQuantity);
+    }
+    else
+    {
+        std::cerr << "Attempt to update item in a closed or undefined order." << std::endl;
+    }
+}
+
+void OrderController::closeOrder()
+{
+    if (currentOrder)
+    {
+        currentOrder->closeOrder();
+    }
+    else
+    {
+        std::cerr << "Attempt to close an undefined order." << std::endl;
+    }
 }
