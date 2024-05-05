@@ -1,7 +1,7 @@
 #ifndef ORDERITEM_H
 #define ORDERITEM_H
 
-#include "MenuItem.h"
+#include "../menu/MenuItem.h"
 
 class OrderItem
 {

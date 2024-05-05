@@ -1,7 +1,7 @@
 #ifndef ORDERCONTROLLER_H
 #define ORDERCONTROLLER_H
 
-#include "Order.h"
+#include "../models/Order.h"
 
 class OrderController
 {
