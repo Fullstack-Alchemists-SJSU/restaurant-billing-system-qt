@@ -1,7 +1,22 @@
 #include "Order.h"
 #include <algorithm>
 
-Order::Order(int id) : orderID(id), status("Open") {}
+int Order::nextOrderID = 1;
+
+// Constructor that sets a specific order ID, use for deserialization/loading
+Order::Order(int id) : orderID(id), status("Open")
+{
+    if (id >= nextOrderID)
+    {
+        nextOrderID = id + 1; // Ensure the next ID is higher than any loaded ID
+    }
+}
+
+// Default constructor for creating new orders with unique IDs
+Order::Order() : orderID(nextOrderID++), status("Open")
+{
+    // Automatically increment to the next ID
+}
 
 void Order::addItem(OrderItem *item)
 {

@@ -12,10 +12,6 @@ OrderListView::OrderListView(QWidget *parent) : QMainWindow(parent), listView(ne
     QLabel *label = new QLabel(tr("Order Management"), this);
     layout->addWidget(label);
 
-    Order *order = new Order(); // Assuming you have an appropriate constructor
-    model = new OrderListModel(order, this);
-    listView->setModel(model);
-
     QPushButton *addButton = new QPushButton(tr("Add Order"), this);
     connect(addButton, &QPushButton::clicked, this, &OrderListView::onAddOrderClicked);
     layout->addWidget(addButton);
@@ -28,8 +24,8 @@ void OrderListView::setOrder(Order *order)
 {
     if (!order)
         return;
-    OrderListModel *model = new OrderListModel(order, this);
-    listView->setModel(model);
+    model.reset(new OrderListModel(order, this)); // Automatically deletes the old model
+    listView->setModel(model.get());
 }
 
 void OrderListView::contextMenuEvent(QContextMenuEvent *event)
