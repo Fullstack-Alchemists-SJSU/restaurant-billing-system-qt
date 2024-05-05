@@ -2,19 +2,17 @@
 #include <sstream>
 #include <fstream>
 #include <stdexcept>
-#include <iterator>
 #include <iostream>
+#include "../menu/Menu.h"
 
 std::string OrderAdapter::serialize(const Order &order)
 {
     std::ostringstream oss;
-    oss << order.getOrderID() << "," << order.getStatus() << "," << order.getTotalPrice();
+    oss << order.getOrderID() << "," << order.getStatus();
 
-    // Serialize each item in the order
-    for (const auto &item : order.getItems())
-    {
-        oss << "," << item.getMenuItemName() << ";" << item.getUnitPrice() << ";" << item.getQuantity();
-    }
+    order.forEachItem([&oss](const OrderItem &item)
+                      { oss << "," << item.getMenuItem()->getName() << ";" << item.getQuantity(); });
+
     return oss.str();
 }
 
@@ -29,69 +27,35 @@ Order OrderAdapter::deserialize(const std::string &csvLine)
         seglist.push_back(segment);
     }
 
-    if (seglist.size() < 3)
+    if (seglist.size() < 3) // Ensure at least ID, status, and one item are present
         throw std::runtime_error("CSV format error");
 
-    // Parsing the order data
     int orderID = std::stoi(seglist[0]);
     std::string status = seglist[1];
-    double totalPrice = std::stod(seglist[2]);
 
-    Order order;
-    order.setOrderID(orderID);
-    order.setStatus(status);
-    order.setTotalPrice(totalPrice);
+    Order order(orderID);
 
-    // Deserialize each item (assumed to be from the fourth segment onwards)
-    for (size_t i = 3; i < seglist.size(); i++)
+    Menu menu;
+
+    for (size_t i = 3; i < seglist.size(); ++i)
     {
         std::istringstream itemStream(seglist[i]);
-        std::string itemDetails;
-        std::vector<std::string> itemData;
-        while (std::getline(itemStream, itemDetails, ';'))
+        std::string itemName;
+        std::getline(itemStream, itemName, ';');
+        int quantity;
+        itemStream >> quantity;
+
+        auto it = menu.findItemByName(itemName);
+        if (it != menu.getMenuItems().end())
         {
-            itemData.push_back(itemDetails);
+            OrderItem *orderItem = new OrderItem(&(*it), quantity); // &(*it) gets the address of the item pointed by iterator
+            order.addItem(orderItem);
         }
-        if (itemData.size() == 3)
+        else
         {
-            OrderItem item(itemData[0], std::stod(itemData[1]), std::stoi(itemData[2]));
-            order.addItem(item);
+            std::cerr << "MenuItem not found during deserialization: " << itemName << std::endl;
         }
     }
 
     return order;
-}
-
-void OrderAdapter::saveOrdersToCSV(const std::vector<Order> &orders, const std::string &filename)
-{
-    std::ofstream outFile(filename, std::ios::out);
-    if (!outFile.is_open())
-        throw std::runtime_error("Failed to open file for writing: " + filename);
-    for (const auto &order : orders)
-    {
-        outFile << OrderAdapter::serialize(order) << std::endl;
-    }
-    outFile.close();
-}
-
-std::vector<Order> OrderAdapter::loadOrdersFromCSV(const std::string &filename)
-{
-    std::vector<Order> orders;
-    std::ifstream inFile(filename);
-    std::string line;
-    if (!inFile.is_open())
-        throw std::runtime_error("Failed to open file for reading: " + filename);
-    while (getline(inFile, line))
-    {
-        try
-        {
-            orders.push_back(OrderAdapter::deserialize(line));
-        }
-        catch (const std::runtime_error &e)
-        {
-            std::cerr << "Failed to parse order from line: " << e.what() << ". Line was: " << line << std::endl;
-        }
-    }
-    inFile.close();
-    return orders;
 }

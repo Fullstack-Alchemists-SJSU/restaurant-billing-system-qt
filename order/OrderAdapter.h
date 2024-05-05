@@ -1,7 +1,9 @@
-#pragma once
-#include "./models/Order.h"
-#include <string>
+#ifndef ORDERADAPTER_H
+#define ORDERADAPTER_H
+
+#include "Order.h"
 #include <vector>
+#include <string>
 
 class OrderAdapter
 {
@@ -11,3 +13,5 @@ public:
     static void saveOrdersToCSV(const std::vector<Order> &orders, const std::string &filename);
     static std::vector<Order> loadOrdersFromCSV(const std::string &filename);
 };
+
+#endif // ORDERADAPTER_H

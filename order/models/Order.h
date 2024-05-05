@@ -7,6 +7,10 @@
 
 class Order
 {
+private:
+    int orderID;
+    std::vector<OrderItem *> items;
+    std::string status; // Open, Closed, etc.
 public:
     Order(int id);
 
@@ -17,11 +21,30 @@ public:
 
     int getOrderID() const;
     std::string getStatus() const;
+    void setStatus(const std::string &status)
+    {
+        this->status = status;
+    }
 
-private:
-    int orderID;
-    std::vector<OrderItem *> items;
-    std::string status; // Open, Closed, etc.
+    typedef std::vector<OrderItem *>::const_iterator const_iterator;
+    const_iterator begin() const { return items.begin(); }
+    const_iterator end() const { return items.end(); }
+
+    void forEachItem(std::function<void(const OrderItem &)> func) const
+    {
+        for (const auto &item : items)
+        {
+            func(*item); // Dereference pointer to pass by reference
+        }
+    }
+
+    ~Order()
+    {
+        for (auto item : items)
+        {
+            delete item;
+        }
+    }
 };
 
 #endif // ORDER_H
