@@ -2,7 +2,8 @@
 #define ORDERLISTMODEL_H
 
 #include <QAbstractListModel>
-#include "Order.h" // Adjust include path as necessary
+#include <QListView>
+#include "./models/Order.h" // Adjust include path as necessary
 
 class OrderListModel : public QAbstractListModel
 {
@@ -10,7 +11,7 @@ class OrderListModel : public QAbstractListModel
 
 public:
     explicit OrderListModel(Order *order, QObject *parent = nullptr);
-    ~OrderListModel();
+    virtual ~OrderListModel() = default;
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

@@ -21,7 +21,9 @@ void MenuController::loadMenuItemsFromFile(const QString& filename) {
         for (auto& item : items) {
             menuModel->addItem(item);
         }
-        menuView->setMenu(menuModel);
+        if(menuView != nullptr){
+            menuView->setMenu(menuModel);
+        }
     }
 }
 
@@ -68,4 +70,17 @@ void MenuController::editItem(const QString &itemName) {
     } else {
         qDebug() << "Item not found for editing:" << itemName;
     }
+}
+
+Menu* MenuController::getMenu(){
+    return menuModel;
+}
+
+Menu* MenuController::getMenuItems(const QString &fileName){
+    Menu* menu = new Menu();
+    auto items = adapter.loadMenuItemsFromCSV(fileName.toStdString());
+    for (auto& item : items) {
+        menu->addItem(item);
+    }
+    return menu;
 }

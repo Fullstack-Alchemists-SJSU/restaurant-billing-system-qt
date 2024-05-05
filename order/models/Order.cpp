@@ -60,12 +60,11 @@ void Order::closeOrder()
     status = "Closed";
 }
 
-int Order::getOrderID() const
-{
-    return orderID;
-}
-
 std::string Order::getStatus() const
 {
     return status;
+}
+
+std::vector<OrderItem *> Order::getItems(){
+    return items;
 }

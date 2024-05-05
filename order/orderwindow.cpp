@@ -9,6 +9,7 @@ OrderWindow::OrderWindow(QWidget *parent)
     , ui(new Ui::OrderWindow)
     , facade(new OrderManagementFacade())
 {
+
     ui->setupUi(this);
     ui->scrollArea->setWidgetResizable(true);
 
@@ -26,7 +27,7 @@ void OrderWindow::setupOrderGrid(){
     for(Order* order : facade->getOrders()){
         QPushButton *button = new QPushButton(QString("Order %1").arg(order->getOrderID()));
         connect(button, &QPushButton::clicked, this, [this, order](){
-            OrderDetails* details = new OrderDetails(order, this);
+            OrderDetails* details = new OrderDetails(order, facade->getMenu(), this);
             details->show();
         });
         ui->glOrder->addWidget(button, row, col, Qt::AlignTop);

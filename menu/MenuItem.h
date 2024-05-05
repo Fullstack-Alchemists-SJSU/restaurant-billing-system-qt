@@ -25,4 +25,8 @@ public:
     Category getCategory() const;
     std::vector<DietaryRestriction> getDietaryRestrictions() const;
     Availability getAvailability() const;
+
+    bool operator==(const MenuItem& other) const {
+        return this->name == other.name;
+    }
 };

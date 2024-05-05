@@ -1,19 +1,24 @@
 #include "OrderManagementFacade.h"
+#include "../menu/MenuController.h"
 #include <iostream>
+#include <QDebug>
 
-OrderManagementFacade::OrderManagementFacade(Menu *menu) : nextOrderId(1), menu(menu) {}
+OrderManagementFacade::OrderManagementFacade() : nextOrderId(1) {
+    MenuController* menuController = new MenuController();
+    this->menu = menuController->getMenuItems("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
+}
 
 int OrderManagementFacade::createOrder()
 {
     Order *newOrder = new Order(nextOrderId++);
-    orders[newOrder->getOrderID()] = newOrder;
+    orders.push_back(newOrder);
     orderController.setOrder(newOrder);
     return newOrder->getOrderID();
 }
 
 void OrderManagementFacade::addItemToOrder(int orderId, const std::string &menuItemName, int quantity)
 {
-    if (orders.find(orderId) != orders.end() && menu)
+    if (orderExists(orderId) && menu)
     {
         auto it = menu->findItemByName(menuItemName);
         if (it != menu->getMenuItems().end())
@@ -29,7 +34,7 @@ void OrderManagementFacade::addItemToOrder(int orderId, const std::string &menuI
 
 void OrderManagementFacade::removeItemFromOrder(int orderId, const std::string &menuItemName)
 {
-    if (orders.find(orderId) != orders.end())
+    if (orderExists(orderId))
     {
         orderController.removeItemFromOrder(menuItemName);
     }
@@ -37,7 +42,7 @@ void OrderManagementFacade::removeItemFromOrder(int orderId, const std::string &
 
 void OrderManagementFacade::updateItemInOrder(int orderId, const std::string &menuItemName, int newQuantity)
 {
-    if (orders.find(orderId) != orders.end())
+    if (orderExists(orderId))
     {
         orderController.updateItemInOrder(menuItemName, newQuantity);
     }
@@ -45,8 +50,16 @@ void OrderManagementFacade::updateItemInOrder(int orderId, const std::string &me
 
 void OrderManagementFacade::closeOrder(int orderId)
 {
-    if (orders.find(orderId) != orders.end())
+    if (orderExists(orderId))
     {
         orderController.closeOrder();
     }
+}
+
+std::vector<Order *> OrderManagementFacade::getOrders(){
+    return orders;
+}
+
+Menu* OrderManagementFacade::getMenu(){
+    return this->menu;
 }

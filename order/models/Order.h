@@ -5,6 +5,8 @@
 #include <string>
 #include <functional>
 #include "OrderItem.h"
+#include <stdexcept>
+#include <QString>
 
 class Order
 {
@@ -22,6 +24,8 @@ public:
     void removeItem(const std::string &menuItemName);
     void updateItem(const std::string &menuItemName, int quantity);
     void closeOrder();
+    std::vector<OrderItem *> getItems();
+
 
     int getOrderID() const { return orderID; }
     std::string getStatus() const;
@@ -64,6 +68,18 @@ public:
         {
             delete item;
         }
+    }
+
+    bool operator==(const Order& other) const {
+        return this->orderID == other.orderID;
+    }
+
+    bool itemExists(QString itemName) const {
+        auto it = std::find_if(items.begin(), items.end(), [itemName](const OrderItem* obj) {
+            return obj->getMenuItem()->getName().compare(itemName.toStdString()) == 0;
+        });
+
+        return it != items.end();
     }
 };
 

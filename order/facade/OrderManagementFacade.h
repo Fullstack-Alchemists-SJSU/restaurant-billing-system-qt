@@ -4,22 +4,31 @@
 #include "../controllers/OrderController.h"
 #include "../menu/Menu.h"
 
-#include <map>
-
 class OrderManagementFacade
 {
 public:
-    OrderManagementFacade(Menu *menu); // Constructor now takes a Menu pointer
+    OrderManagementFacade(); // Constructor now takes a Menu pointer
 
     int createOrder();
     void addItemToOrder(int orderId, const std::string &menuItemName, int quantity);
     void removeItemFromOrder(int orderId, const std::string &menuItemName);
     void updateItemInOrder(int orderId, const std::string &menuItemName, int newQuantity);
     void closeOrder(int orderId);
+    std::vector<Order *> getOrders();
+
+    bool orderExists(int orderId) const {
+        auto it = std::find_if(orders.begin(), orders.end(), [orderId](const Order* obj) {
+            return obj->getOrderID() == orderId;
+        });
+
+        return it != orders.end();
+    }
+
+    Menu* getMenu();
 
 private:
     OrderController orderController;
-    std::map<int, Order *> orders;
+    std::vector<Order *> orders;
     int nextOrderId;
     Menu *menu; // Pointer to a Menu object
 };

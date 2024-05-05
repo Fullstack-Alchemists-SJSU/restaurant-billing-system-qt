@@ -27,14 +27,27 @@
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="btnAddItem">
-      <property name="text">
-       <string>Add Item to Order</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QComboBox" name="cbMenu"/>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="sbQuantity"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnAddToOrder">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Add to Order</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QTableWidget" name="tableWidget"/>
+     <widget class="QTableView" name="tvItems"/>
     </item>
    </layout>
   </widget>

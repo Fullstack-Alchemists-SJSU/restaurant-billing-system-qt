@@ -91,14 +91,14 @@ add_executable(restaurant-billing-system
     order/OrderAdapter.cpp
     order/OrderListModel.h
     order/OrderListModel.cpp
-    order/OrderListView.h
-    order/OrderListView.cpp
     order/orderdetails.cpp
     order/orderdetails.h
     order/orderdetails.ui
     order/orderwindow.h order/orderwindow.cpp order/orderwindow.ui
     order/orderdetails.h order/orderdetails.cpp order/orderdetails.ui
     order/orderdetails.h order/orderdetails.cpp order/orderdetails.ui
+    order/OrderTableAdapter.h
+    order/OrderTableAdapter.cpp
 )
 
 target_link_libraries(restaurant-billing-system PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
