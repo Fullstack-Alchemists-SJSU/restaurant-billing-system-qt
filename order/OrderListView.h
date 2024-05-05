@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QListView>
+#include <memory>
 #include "OrderListModel.h"
 #include "./models/Order.h"
 
@@ -18,7 +19,7 @@ public:
 
 private:
     QListView *listView;
-    OrderListModel *model;
+    std::unique_ptr<OrderListModel> model;
 
 signals:
     void orderDeleted(const QString &orderID);

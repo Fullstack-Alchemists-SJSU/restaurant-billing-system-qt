@@ -37,7 +37,7 @@ void OrderListView::contextMenuEvent(QContextMenuEvent *event)
         QAction *deleteAction = menu.addAction("Delete Order");
         QAction *editAction = menu.addAction("Edit Order");
         QAction *selectedAction = menu.exec(mapToGlobal(event->pos()));
-        QString orderID = index.data(OrderListModel::IdRole).toString();
+        QString orderID = index.data(OrderListModel::NameRole).toString();
         if (selectedAction == deleteAction)
         {
             emit orderDeleted(orderID);
