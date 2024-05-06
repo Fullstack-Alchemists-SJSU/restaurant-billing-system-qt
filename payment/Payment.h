@@ -3,7 +3,7 @@
 #define PAYMENT_H
 
 #include <string>
-#include "../bill/Bill.h"  // Assuming Bill is a class defined in another header
+#include "../bill/bill.h"  // Assuming Bill is a class defined in another header
 
 class Payment {
 public:

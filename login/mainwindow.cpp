@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "../menu/MenuWindow.h"
+#include "../order/orderwindow.h"
+#include "../bill/billwindow.h"
 #include <QDebug>
 #include <QMessageBox>
 
@@ -32,10 +33,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::showMainWindow(){
     this->show();
-    if(dynamic_cast<AdminDashboard*>(nextWindow)){
-        disconnect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+    if(nextWindow != nullptr){
+        if(dynamic_cast<AdminDashboard*>(nextWindow)){
+            disconnect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
+        }
+        nextWindow->deleteLater();
     }
-    nextWindow->deleteLater();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -53,9 +56,9 @@ void MainWindow::on_pushButton_clicked()
                 connect((AdminDashboard*) nextWindow, &AdminDashboard::backNavigationRequested, this, &MainWindow::showMainWindow);
                 break;
             case Role::StaffMember:
-                nextWindow = new MenuWindow(nullptr, this);
+                nextWindow = new OrderWindow(this);
             case Role::Accountant:
-                //TODO: Add navigation for accountant
+                nextWindow = new BillWindow(this);
             default:
                 break;
             }

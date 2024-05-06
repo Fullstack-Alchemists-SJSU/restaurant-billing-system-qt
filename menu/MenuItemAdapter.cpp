@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
+#include <QDebug>
 
 std::string MenuItemAdapter::serialize(const MenuItem& item) {
     std::ostringstream oss;
@@ -66,15 +67,19 @@ std::vector<DietaryRestriction> MenuItemAdapter::parseDietaryRestrictions(const 
 }
 
 void MenuItemAdapter::saveMenuItemsToCSV(const std::vector<MenuItem>& items, const std::string& filename) {
-    std::ofstream outFile(filename, std::ios::out);
-    if (!outFile.is_open()) {
-        throw std::runtime_error("Failed to open file for writing: " + filename);
-    }
+    try{
+        std::ofstream outFile(filename, std::ios::out);
+        if (!outFile.is_open()) {
+            throw std::runtime_error("Failed to open file for writing: " + filename);
+        }
 
-    for (const auto& item : items) {
-        outFile << MenuItemAdapter::serialize(item) << std::endl;
+        for (const auto& item : items) {
+            outFile << MenuItemAdapter::serialize(item) << std::endl;
+        }
+        outFile.close();
+    }catch(std::exception e){
+        qDebug() << "Menu write exc: " << e.what();
     }
-    outFile.close();
 }
 
 std::vector<MenuItem> MenuItemAdapter::loadMenuItemsFromCSV(const std::string& filename) {

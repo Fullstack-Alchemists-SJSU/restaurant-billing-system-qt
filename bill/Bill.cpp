@@ -1,5 +1,5 @@
-#include "Bill.h"
-#include "../order/Order.h" // Include the Order header file
+#include "bill.h"
+#include "../order/models/Order.h"
 #include <algorithm>
 
 // Constructor
@@ -38,7 +38,7 @@ void Bill::removeDiscountDecorator(std::shared_ptr<BillDecorator> decorator) {
 // Generates a bill including applied discounts
 void Bill::generateBill() {
     if (order) {
-        totalAmount = order->calculateTotal();  // Calculate total without discounts initially
+        totalAmount = calculateTotal();  // Calculate total without discounts initially
         applyDiscounts();  // Apply discounts if any
         std::cout << "Bill is generated." << std::endl;
     } else {
@@ -55,4 +55,17 @@ void Bill::printBill() const {
     } else {
         std::cerr << "Order pointer is null. Cannot view bill." << std::endl;
     }
+}
+
+double Bill::calculateTotal(){
+    if(order != nullptr){
+        double orderTotal = 0;
+        for(OrderItem* item: order->getItems()){
+            orderTotal += (item->getQuantity() * item->getMenuItem()->getPrice());
+        }
+
+        return orderTotal;
+    }
+
+    return 0;
 }

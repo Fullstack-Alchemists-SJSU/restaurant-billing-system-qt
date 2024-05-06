@@ -17,8 +17,10 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/db
     ${PROJECT_SOURCE_DIR}/login
     ${PROJECT_SOURCE_DIR}/user_use_case
-    ${PROJECT_SOURCE_DIR}/user_use_util
     ${PROJECT_SOURCE_DIR}/util
+    ${PROJECT_SOURCE_DIR}/order
+    ${PROJECT_SOURCE_DIR}/bill
+    ${PROJECT_SOURCE_DIR}/payment
 )
 
 set(PROJECT_SOURCES
@@ -33,10 +35,13 @@ add_executable(restaurant-billing-system
     ${PROJECT_SOURCES}
     users.qrc
     util/Constants.h
+    util/Enums.cpp
+    util/Enums.h
     db/FileManager.h
     db/FileManager.cpp
-    db/UserManager.cpp
     db/menuitems.csv
+    db/UserManager.h
+    db/UserManager.cpp
     login/LoginDataModel.cpp
     login/LoginDataModel.h
     login/LoginController.h
@@ -47,32 +52,69 @@ add_executable(restaurant-billing-system
     admin/AdminDashboardController.h
     admin/AdminDashboardController.cpp
     admin/UserTableModelAdapter.cpp
-    menu/Menu.cpp
-    menu/MenuItem.cpp
-    menu/MenuWindow.cpp
-    menu/MenuListView.cpp
-    menu/MenuListModel.cpp
-    menu/MenuItemDelegate.cpp
-    order/Order.h
-    order/Order.cpp
-    order/OrderItem.h
-    order/OrderItem.cpp
-    model/user/UserFactory.cpp
+    admin/UserTableModelAdapter.h
     user_use_case/edituserdialog.h
     user_use_case/edituserdialog.cpp
     user_use_case/EditUserDialogController.h
     user_use_case/EditUserDialogController.cpp
     user_use_case/edituserdialog.ui
-    order/Order.cpp
-    order/OrderItem.cpp
     payment/Payment.h
     payment/Payment.cpp
-
-    bill/Bill.h
+    bill/bill.h
+    bill/Bill.cpp
     bill/BillInterface.h
     bill/BillDecorator.h
     bill/PartyDiscountDecorator.h
     bill/CouponDiscountDecorator.h
+    model/user/User.h
+    model/user/Admin.h
+    model/user/StaffMember.h
+    model/user/Accountant.h
+    model/user/UserFactory.h
+    model/user/UserFactory.cpp
+    menu/Menu.cpp
+    menu/Menu.h
+    menu/MenuController.cpp
+    menu/MenuController.h
+    menu/MenuItem.cpp
+    menu/MenuItem.h
+    menu/MenuItemAdapter.cpp
+    menu/MenuItemAdapter.h
+    menu/MenuItemDelegate.cpp
+    menu/MenuItemDelegate.h
+    menu/MenuItemDialog.cpp
+    menu/MenuItemDialog.h
+    menu/MenuListModel.cpp
+    menu/MenuListModel.h
+    menu/MenuListView.cpp
+    menu/MenuListView.h
+    menu/MenuWindow.cpp
+    menu/MenuWindow.h
+    menu/MenuWindow.ui
+    order/controllers//OrderController.cpp
+    order/controllers//OrderController.h
+    order/facade/OrderManagementFacade.cpp
+    order/facade/OrderManagementFacade.h
+    order/models/Order.cpp
+    order/models/Order.h
+    order/models/OrderItem.cpp
+    order/models/OrderItem.h
+    order/OrderAdapter.h
+    order/OrderAdapter.cpp
+    order/OrderListModel.h
+    order/OrderListModel.cpp
+    order/orderdetails.cpp
+    order/orderdetails.h
+    order/orderdetails.ui
+    order/orderwindow.h order/orderwindow.cpp order/orderwindow.ui
+    order/orderdetails.h order/orderdetails.cpp order/orderdetails.ui
+    order/orderdetails.h order/orderdetails.cpp order/orderdetails.ui
+    order/OrderTableAdapter.h
+    order/OrderTableAdapter.cpp
+    bill/billwindow.h bill/billwindow.cpp bill/billwindow.ui
+    bill/billdetails.h bill/billdetails.cpp bill/billdetails.ui
+
+
 )
 
 target_link_libraries(restaurant-billing-system PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

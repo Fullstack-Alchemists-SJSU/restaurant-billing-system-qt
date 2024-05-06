@@ -30,6 +30,10 @@ public:
     // Remove a discount decorator
     void removeDiscountDecorator(std::shared_ptr<BillDecorator> decorator);
 
+    void applyDiscounts();
+
+    double calculateTotal();
+
 private:
     int billID;                  // Unique identifier for the bill
     Order* order;                // Pointer to the associated order

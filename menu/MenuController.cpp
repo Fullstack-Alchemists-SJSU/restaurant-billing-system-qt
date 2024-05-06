@@ -21,7 +21,9 @@ void MenuController::loadMenuItemsFromFile(const QString& filename) {
         for (auto& item : items) {
             menuModel->addItem(item);
         }
-        menuView->setMenu(menuModel);
+        if(menuView != nullptr){
+            menuView->setMenu(menuModel);
+        }
     }
 }
 
@@ -34,8 +36,7 @@ void MenuController::saveMenuItemsToFile(const QString &filename) {
 void MenuController::handleItemDeletion(const QString &itemName) {
     if (menuModel) {
         menuModel->removeItem(itemName.toStdString());
-        // Update the CSV file
-        saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
+        saveMenuItemsToFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
     }
 }
 
@@ -44,7 +45,7 @@ void MenuController::addItem() {
     if (dialog.exec() == QDialog::Accepted) {
         MenuItem newItem = dialog.getItem();
         menuModel->addItem(newItem);
-        saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
+        saveMenuItemsToFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
     }
 }
 
@@ -61,11 +62,24 @@ void MenuController::editItem(const QString &itemName) {
         if (dialog.exec() == QDialog::Accepted) {
             MenuItem newItem = dialog.getItem();
             menuModel->updateItem(newItem);
-            saveMenuItemsToFile("/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/menuitems.csv");
+            saveMenuItemsToFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
             qDebug() << "Item updated successfully. noww";
              // Assuming you have a method to get index from iterator
         }
     } else {
         qDebug() << "Item not found for editing:" << itemName;
     }
+}
+
+Menu* MenuController::getMenu(){
+    return menuModel;
+}
+
+Menu* MenuController::getMenuItems(const QString &fileName){
+    Menu* menu = new Menu();
+    auto items = adapter.loadMenuItemsFromCSV(fileName.toStdString());
+    for (auto& item : items) {
+        menu->addItem(item);
+    }
+    return menu;
 }

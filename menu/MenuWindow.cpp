@@ -3,10 +3,15 @@
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
+#include "MenuController.h"
 
 MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
-    : QMainWindow(parent), menuListView(new MenuListView(this)) {
+    : QMainWindow(parent), menuListView(new MenuListView(this)), menuController(new MenuController(this)) {
     setWindowTitle(tr("Menu Management"));
+
+    menuController->setMenuModel(menu);
+    menuController->setView(menuListView);
+    menuController->loadMenuItemsFromFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
 
     // Create a menu bar and add items
     QMenuBar *menuBar = new QMenuBar(this);

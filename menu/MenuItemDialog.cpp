@@ -2,7 +2,7 @@
 #include <QVBoxLayout>
 #include "../util/Enums.h"
 
-    MenuItemDialog::MenuItemDialog(QWidget *parent) : QDialog(parent) {
+MenuItemDialog::MenuItemDialog(QWidget *parent) : QDialog(parent) {
     setupUi();
     setupConnections();
     populateDietaryRestrictions();
