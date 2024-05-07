@@ -13,7 +13,7 @@ BillDetails::BillDetails(Order* order, QWidget *parent)
     ,  bill(new Bill(1, order, QDateTime::currentDateTimeUtc().toString().toStdString()))  // Initialize bill here
 {
     ui->setupUi(this);
-
+    ui->labelDiscountStatus->setText("");
     connect(ui->btnApplyCoupon, &QPushButton::clicked, this, &BillDetails::applyCouponDiscount);
     connect(ui->btnApplyParty, &QPushButton::clicked, this, &BillDetails::applyPartyDiscount);
     connect(ui->btnApplySeasonal, &QPushButton::clicked, this, &BillDetails::applySeasonalDiscount);
@@ -43,18 +43,22 @@ void BillDetails::applyCouponDiscount() {
     std::function<double(double)> coupon = [](double total) { return total * 0.95; };
     bill->applyDiscount(coupon);
     updateTotalDisplay();
+
+    ui->labelDiscountStatus->setText("A 5% coupon discount has been applied.");
 }
 
 void BillDetails::applyPartyDiscount() {
     std::function<double(double)> party = [](double total) { return total * 0.9; };
     bill->applyDiscount(party);
     updateTotalDisplay();
+    ui->labelDiscountStatus->setText("A 10% party discount has been applied.");
 }
 
 void BillDetails::applySeasonalDiscount() {
     std::function<double(double)> seasonal = [](double total) { return total * 0.85; };
     bill->applyDiscount(seasonal);
     updateTotalDisplay();
+    ui->labelDiscountStatus->setText("A 15% seassonal discount has been applied.");
 }
 
 void BillDetails::updateTotalDisplay() {

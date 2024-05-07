@@ -126,6 +126,16 @@
     </item>
 
 <item>
+  <widget class="QLabel" name="labelDiscountStatus">
+    <property name="text">
+      <string></string>  <!-- Initially empty, will show discount messages when applied -->
+    </property>
+    <property name="alignment">
+      <set>Qt::AlignCenter</set>  <!-- Centers the text within the label -->
+    </property>
+  </widget>
+</item>
+<item>
  <layout class="QHBoxLayout" name="horizontalLayoutDiscounts">
   <item>
    <widget class="QPushButton" name="btnApplyCoupon">

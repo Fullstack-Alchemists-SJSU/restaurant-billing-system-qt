@@ -2,6 +2,8 @@
 #define BILLDETAILS_H
 
 #include <QMainWindow>
+
+#include <QLabel>
 #include "../order/models/Order.h"
 #include "../order/OrderTableAdapter.h"
 #include "bill.h"
@@ -28,6 +30,7 @@ private:
     Order* order;
     OrderTableAdapter* adapter;
     Bill* bill;
+    QLabel *labelDiscountStatus;
 };
 
 #endif // BILLDETAILS_H
