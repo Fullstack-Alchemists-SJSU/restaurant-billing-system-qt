@@ -1,6 +1,7 @@
 #include "bill.h"
 #include "../order/models/Order.h"
 #include <algorithm>
+#include <iostream>
 
 // Constructor
 Bill::Bill(int id, Order* ord, const std::string& billDate)
@@ -9,41 +10,38 @@ Bill::Bill(int id, Order* ord, const std::string& billDate)
 // Destructor
 Bill::~Bill() {}
 
-// Add a discount decorator
-void Bill::addDiscountDecorator(std::shared_ptr<BillDecorator> decorator) {
-    discountDecorators.push_back(decorator);
+void Bill::addDiscount(std::function<double(double)> discountFunction) {
+    discounts.push_back(discountFunction);
 }
 
-// Apply all added discount decorators to calculate total amount
-void Bill::applyDiscounts() {
-    double discountedTotal = totalAmount;
-    for (auto& decorator : discountDecorators) {
-        discountedTotal = decorator->getTotalAmount();
-    }
-    totalAmount = discountedTotal;
+void Bill::removeDiscount(std::function<double(double)> discountFunction) {
+    discounts.erase(std::remove_if(discounts.begin(), discounts.end(),
+                                   [&discountFunction](const std::function<double(double)>& f) {
+                                       return f.target_type() == discountFunction.target_type();
+                                   }), discounts.end());
 }
 
+void Bill::applyDiscount(std::function<double(double)> discountFunction) {
+    discounts.push_back(discountFunction);
+    totalAmount = calculateTotal();  // Recalculate total immediately
+}
 
-// Remove a discount decorator
-void Bill::removeDiscountDecorator(std::shared_ptr<BillDecorator> decorator) {
-    auto it = std::find_if(discountDecorators.begin(), discountDecorators.end(),
-                           [decorator](const std::shared_ptr<BillDecorator>& item) {
-                               return item == decorator;
-                           });
-    if (it != discountDecorators.end()) {
-        discountDecorators.erase(it);
+double Bill::calculateTotal() {
+    double baseTotal = 0;
+    if (order != nullptr) {
+        for (const OrderItem* item : order->getItems()) {
+            baseTotal += item->getQuantity() * item->getMenuItem()->getPrice();
+        }
     }
+    for (const auto& discount : discounts) {
+        baseTotal = discount(baseTotal);  // Apply each discount in turn
+    }
+    return baseTotal;
 }
 
 // Generates a bill including applied discounts
 void Bill::generateBill() {
-    if (order) {
-        totalAmount = calculateTotal();  // Calculate total without discounts initially
-        applyDiscounts();  // Apply discounts if any
-        std::cout << "Bill is generated." << std::endl;
-    } else {
-        std::cerr << "Order pointer is null. Cannot generate bill." << std::endl;
-    }
+    totalAmount = calculateTotal();
 }
 
 // Print the bill details
@@ -56,7 +54,7 @@ void Bill::printBill() const {
         std::cerr << "Order pointer is null. Cannot view bill." << std::endl;
     }
 }
-
+/*
 double Bill::calculateTotal(){
     if(order != nullptr){
         double orderTotal = 0;
@@ -68,4 +66,4 @@ double Bill::calculateTotal(){
     }
 
     return 0;
-}
+}*/

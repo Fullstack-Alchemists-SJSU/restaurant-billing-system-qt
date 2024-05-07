@@ -3,12 +3,14 @@
 #include <QDateTime>
 #include <QMessageBox>
 #include "bill.h"
+#include <iostream>
 
 BillDetails::BillDetails(Order* order, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::BillDetails)
     , order(order)
     , adapter(new OrderTableAdapter(this))
+    ,  bill(new Bill(1, order, QDateTime::currentDateTimeUtc().toString().toStdString()))  // Initialize bill here
 {
     ui->setupUi(this);
 
@@ -26,7 +28,7 @@ BillDetails::BillDetails(Order* order, QWidget *parent)
     ui->tvOrderItems->setModel(adapter);
     ui->tvOrderItems->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    Bill* bill = new Bill(1, order, QDateTime::currentDateTimeUtc().toString().toStdString());
+    //Bill* bill = new Bill(1, order, QDateTime::currentDateTimeUtc().toString().toStdString());
 
     ui->lcdTotal->display(bill->calculateTotal());
 
@@ -38,20 +40,30 @@ BillDetails::BillDetails(Order* order, QWidget *parent)
 
 
 void BillDetails::applyCouponDiscount() {
-    // Assuming you have a method to apply the coupon discount
-    // Update the bill and UI accordingly
+    std::function<double(double)> coupon = [](double total) { return total * 0.95; };
+    bill->applyDiscount(coupon);
+    updateTotalDisplay();
 }
 
 void BillDetails::applyPartyDiscount() {
-    // Assuming you have a method to apply the party discount
-    // Update the bill and UI accordingly
+    std::function<double(double)> party = [](double total) { return total * 0.9; };
+    bill->applyDiscount(party);
+    updateTotalDisplay();
 }
 
 void BillDetails::applySeasonalDiscount() {
-    // Assuming you have a method to apply the seasonal discount
-    // Update the bill and UI accordingly
+    std::function<double(double)> seasonal = [](double total) { return total * 0.85; };
+    bill->applyDiscount(seasonal);
+    updateTotalDisplay();
 }
 
+void BillDetails::updateTotalDisplay() {
+    double total = bill->calculateTotal();
+    ui->lcdTotal->display(total);  // Update the display with the new total
+
+    // Print the total to the standard output
+    std::cout << "Current Bill Total: $" << total << std::endl;
+}
 
 
 void BillDetails::makePayment() {
@@ -62,4 +74,5 @@ void BillDetails::makePayment() {
 BillDetails::~BillDetails()
 {
     delete ui;
+    delete bill;  // Clean up the bill object
 }
