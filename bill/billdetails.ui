@@ -124,6 +124,43 @@
       </property>
      </spacer>
     </item>
+
+<item>
+ <layout class="QHBoxLayout" name="horizontalLayoutDiscounts">
+  <item>
+   <widget class="QPushButton" name="btnApplyCoupon">
+    <property name="text">
+     <string>Apply Coupon Discount</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QPushButton" name="btnApplyParty">
+    <property name="text">
+     <string>Apply Party Discount</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <widget class="QPushButton" name="btnApplySeasonal">
+    <property name="text">
+     <string>Apply Seasonal Discount</string>
+    </property>
+   </widget>
+  </item>
+ </layout>
+</item>
+<item>
+ <layout class="QHBoxLayout" name="horizontalLayoutActions">
+  <item>
+   <widget class="QPushButton" name="btnMakePayment">
+    <property name="text">
+     <string>Make Payment</string>
+    </property>
+   </widget>
+  </item>
+ </layout>
+</item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>

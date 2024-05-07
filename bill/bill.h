@@ -6,11 +6,13 @@
 #include <string>
 #include <memory>
 #include "BillDecorator.h" // Include the BillDecorator header file
+#include "BillInterface.h"
+#include <memory>
 
 
 class Order; // Forward declaration of the Order class
 
-class Bill {
+class Bill   {
 public:
     // Constructor to initialize a Bill object
     Bill(int id, Order* ord, const std::string& billDate);
@@ -33,6 +35,9 @@ public:
     void applyDiscounts();
 
     double calculateTotal();
+    void refreshTotal();
+
+
 
 private:
     int billID;                  // Unique identifier for the bill

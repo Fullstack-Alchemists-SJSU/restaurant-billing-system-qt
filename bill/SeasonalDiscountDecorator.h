@@ -8,9 +8,9 @@ public:
     SeasonalDiscountDecorator(std::shared_ptr<BillInterface> bill) : BillDecorator(bill) {}
 
     double getTotalAmount() const override {
-        // Apply a 10% discount for party orders
+        // Apply a 15% discount for seasonal orders
         return wrappedBill->getTotalAmount() * 0.85;
     }
 };
 
-#endif // PARTY_DISCOUNT_DECORATOR_H
+#endif // SEASONAL_DISCOUNT_DECORATOR_H

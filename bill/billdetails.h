@@ -17,6 +17,10 @@ public:
     explicit BillDetails(Order* order, QWidget *parent = nullptr);
     ~BillDetails();
 
+    void applyCouponDiscount();  // Method to apply coupon discount
+    void applyPartyDiscount();   // Method to apply party discount
+    void applySeasonalDiscount();// Method to apply seasonal discount
+    void makePayment();          // Method to process payment
 private:
     Ui::BillDetails *ui;
     Order* order;
