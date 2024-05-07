@@ -18,8 +18,6 @@ public:
     // Destructor
     ~Bill();
 
-
-
     // Generates a bill by calculating the total from the Order object
     void generateBill();
 
