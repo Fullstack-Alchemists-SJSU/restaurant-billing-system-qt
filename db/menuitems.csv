@@ -3,3 +3,5 @@ Steak,25.99,,Grilled steak,MainCourse,"",OutOfStock
 Soda,1.99,/path/to/soda.jpg,Carbonated soft drink,Drink,"",Available
 test,1,,test,SideDish,"DairyFree",Seasonal
 aditya test 1,10,,asd,Dessert,"Vegan;GlutenFree;NutFree",Available
+Fries,5.99,,,SideDish,"Vegetarian",Available
+Burger,5.99,,,MainCourse,"",Available

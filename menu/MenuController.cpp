@@ -36,7 +36,7 @@ void MenuController::saveMenuItemsToFile(const QString &filename) {
 void MenuController::handleItemDeletion(const QString &itemName) {
     if (menuModel) {
         menuModel->removeItem(itemName.toStdString());
-        saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
+        saveMenuItemsToFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
     }
 }
 
@@ -45,7 +45,7 @@ void MenuController::addItem() {
     if (dialog.exec() == QDialog::Accepted) {
         MenuItem newItem = dialog.getItem();
         menuModel->addItem(newItem);
-        saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
+        saveMenuItemsToFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
     }
 }
 
@@ -62,7 +62,7 @@ void MenuController::editItem(const QString &itemName) {
         if (dialog.exec() == QDialog::Accepted) {
             MenuItem newItem = dialog.getItem();
             menuModel->updateItem(newItem);
-            saveMenuItemsToFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
+            saveMenuItemsToFile("/home/aditya-kulkarni/Projects/SJSU/CMPE202/restaurant-billing-system/db/menuitems.csv");
             qDebug() << "Item updated successfully. noww";
              // Assuming you have a method to get index from iterator
         }

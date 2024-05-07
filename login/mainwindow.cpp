@@ -57,8 +57,10 @@ void MainWindow::on_pushButton_clicked()
                 break;
             case Role::StaffMember:
                 nextWindow = new OrderWindow(this);
+                break;
             case Role::Accountant:
                 nextWindow = new BillWindow(this);
+                break;
             default:
                 break;
             }
