@@ -3,12 +3,37 @@
 #include <algorithm>
 #include <iostream>
 
-// Constructor
 Bill::Bill(int id, Order* ord, const std::string& billDate)
     : billID(id), order(ord), date(billDate), totalAmount(0.0) {}
 
-// Destructor
 Bill::~Bill() {}
+
+void Bill::generateBill() {
+    totalAmount = calculateTotal();
+}
+
+void Bill::printBill() const {
+    if (order) {
+        std::cout << "Bill ID: " << billID << std::endl;
+        std::cout << "Date: " << date << std::endl;
+        std::cout << "Total amount: $" << totalAmount << std::endl;
+    } else {
+        std::cerr << "Order pointer is null. Cannot view bill." << std::endl;
+    }
+}
+
+double Bill::calculateTotal() {
+    double baseTotal = 0;
+    if (order != nullptr) {
+        for (const OrderItem* item : order->getItems()) {
+            baseTotal += item->getQuantity() * item->getMenuItem()->getPrice();
+        }
+    }
+    for (const auto& discount : discounts) {
+        baseTotal = discount(baseTotal);
+    }
+    return baseTotal;
+}
 
 void Bill::addDiscount(std::function<double(double)> discountFunction) {
     discounts.push_back(discountFunction);
@@ -21,49 +46,6 @@ void Bill::removeDiscount(std::function<double(double)> discountFunction) {
                                    }), discounts.end());
 }
 
-void Bill::applyDiscount(std::function<double(double)> discountFunction) {
-    discounts.push_back(discountFunction);
-    totalAmount = calculateTotal();  // Recalculate total immediately
+double Bill::getTotalAmount() const {
+    return totalAmount;
 }
-
-double Bill::calculateTotal() {
-    double baseTotal = 0;
-    if (order != nullptr) {
-        for (const OrderItem* item : order->getItems()) {
-            baseTotal += item->getQuantity() * item->getMenuItem()->getPrice();
-        }
-    }
-    for (const auto& discount : discounts) {
-        baseTotal = discount(baseTotal);  // Apply each discount in turn
-    }
-    return baseTotal;
-}
-
-// Generates a bill including applied discounts
-void Bill::generateBill() {
-    totalAmount = calculateTotal();
-}
-
-// Print the bill details
-void Bill::printBill() const {
-    if (order) {
-        std::cout << "Bill ID: " << billID << std::endl;
-        std::cout << "Date: " << date << std::endl;
-        std::cout << "Total amount: $" << totalAmount << std::endl;
-    } else {
-        std::cerr << "Order pointer is null. Cannot view bill." << std::endl;
-    }
-}
-/*
-double Bill::calculateTotal(){
-    if(order != nullptr){
-        double orderTotal = 0;
-        for(OrderItem* item: order->getItems()){
-            orderTotal += (item->getQuantity() * item->getMenuItem()->getPrice());
-        }
-
-        return orderTotal;
-    }
-
-    return 0;
-}*/

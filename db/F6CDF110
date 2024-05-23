@@ -1,5 +1,6 @@
+id,username,password,role
 1,shivam.hasurkar,admin@123,1
 2,vijitha.gunta,viji,2
 3,vijiadmin,viji2,1
+4,addyadmin,root,1
 5,addyuser,root,3
-6,waiter1,root,2

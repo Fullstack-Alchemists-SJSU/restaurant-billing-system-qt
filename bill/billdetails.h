@@ -2,7 +2,7 @@
 #define BILLDETAILS_H
 
 #include <QMainWindow>
-
+#include <memory>
 #include <QLabel>
 #include "../order/models/Order.h"
 #include "../order/OrderTableAdapter.h"
@@ -25,11 +25,12 @@ public:
     void applySeasonalDiscount();// Method to apply seasonal discount
     void makePayment();          // Method to process payment
     void updateTotalDisplay();
+
 private:
     Ui::BillDetails *ui;
     Order* order;
     OrderTableAdapter* adapter;
-    Bill* bill;
+    std::shared_ptr<BillInterface> bill;  // Use shared_ptr<BillInterface>
     QLabel *labelDiscountStatus;
 };
 

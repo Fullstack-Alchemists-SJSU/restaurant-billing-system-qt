@@ -6,9 +6,7 @@
 class CouponDiscountDecorator : public BillDecorator {
 public:
     CouponDiscountDecorator(std::shared_ptr<BillInterface> bill) : BillDecorator(bill) {}
-
     double getTotalAmount() const override {
-        // Apply a 5% discount for having a coupon
         return wrappedBill->getTotalAmount() * 0.95;
     }
 };
