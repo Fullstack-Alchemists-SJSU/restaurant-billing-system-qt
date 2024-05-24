@@ -4,7 +4,7 @@
 #include <QAbstractTableModel>
 #include <QList>
 #include "../util/Constants.h"
-#include "../model/user/User.h"  // Ensure you have a User class defined as shown in previous examples
+#include "../model/user/User.h"
 
 class UserTableModelAdapter : public QAbstractTableModel {
     Q_OBJECT
@@ -22,6 +22,5 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
 private:
-    QList<User*> users;  // List of User objects to store the user data
-};
+    QList<User*> users;
 #endif // USERTABLEMODELADAPTER_H

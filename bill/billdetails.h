@@ -20,17 +20,17 @@ public:
     explicit BillDetails(Order* order, QWidget *parent = nullptr);
     ~BillDetails();
 
-    void applyCouponDiscount();  // Method to apply coupon discount
-    void applyPartyDiscount();   // Method to apply party discount
-    void applySeasonalDiscount();// Method to apply seasonal discount
-    void makePayment();          // Method to process payment
+    void applyCouponDiscount();
+    void applyPartyDiscount();
+    void applySeasonalDiscount();
+    void makePayment();
     void updateTotalDisplay();
 
 private:
     Ui::BillDetails *ui;
     Order* order;
     OrderTableAdapter* adapter;
-    std::shared_ptr<BillInterface> bill;  // Use shared_ptr<BillInterface>
+    std::shared_ptr<BillInterface> bill;
     QLabel *labelDiscountStatus;
 };
 

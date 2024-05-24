@@ -77,7 +77,6 @@ void MenuItemDialog::setItem(const MenuItem& item) {
     categoryCombo->setCurrentText(QString::fromStdString(categoryToString(item.getCategory())));
     availabilityCombo->setCurrentText(QString::fromStdString(availabilityToString(item.getAvailability())));
 
-    // Assuming dietary restrictions are set correctly
     for (int i = 0; i < dietaryRestrictionsList->count(); ++i) {
         QListWidgetItem *widgetItem = dietaryRestrictionsList->item(i);
         std::string restriction = widgetItem->text().toStdString();
@@ -88,7 +87,7 @@ void MenuItemDialog::setItem(const MenuItem& item) {
 void MenuItemDialog::setDietaryRestrictions(const std::vector<DietaryRestriction>& restrictions) {
     for (int i = 0; i < dietaryRestrictionsList->count(); ++i) {
         QListWidgetItem *item = dietaryRestrictionsList->item(i);
-        // Assume that the text of each item corresponds to the string from dietaryRestrictionToString
+
         QString restrictionText = QString::fromStdString(dietaryRestrictionToString(static_cast<DietaryRestriction>(i)));
         item->setCheckState(Qt::Unchecked); // Reset first
         for (const auto& restriction : restrictions) {

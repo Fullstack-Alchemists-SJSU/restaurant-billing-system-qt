@@ -3,7 +3,7 @@
 
 #include <QAbstractTableModel>
 #include <vector>
-#include "./models/OrderItem.h"  // Include your OrderItem and MenuItem definitions
+#include "./models/OrderItem.h"
 
 class OrderTableAdapter : public QAbstractTableModel {
     Q_OBJECT

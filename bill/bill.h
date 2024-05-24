@@ -5,7 +5,7 @@
 #include <string>
 #include <functional>
 #include <memory>
-#include "BillInterface.h"  // Include the BillInterface header
+#include "BillInterface.h"
 
 class Order;
 
@@ -20,7 +20,7 @@ public:
     void removeDiscount(std::function<double(double)> discountFunction);
 
     double calculateTotal();
-    double getTotalAmount() const override;  // Override the virtual function
+    double getTotalAmount() const override;
 
 private:
     int billID;

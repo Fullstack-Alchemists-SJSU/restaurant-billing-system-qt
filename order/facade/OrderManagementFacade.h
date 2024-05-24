@@ -8,7 +8,7 @@
 class OrderManagementFacade
 {
 public:
-    OrderManagementFacade(); // Constructor now takes a Menu pointer
+    OrderManagementFacade();
 
     int createOrder();
     void addItemToOrder(int orderId, const std::string &menuItemName, int quantity);

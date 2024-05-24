@@ -4,7 +4,7 @@
 class BillInterface {
 public:
     virtual ~BillInterface() {}
-    virtual double getTotalAmount() const = 0;  // Ensure this function is virtual
+    virtual double getTotalAmount() const = 0;
 };
 
 #endif // BILL_INTERFACE_H

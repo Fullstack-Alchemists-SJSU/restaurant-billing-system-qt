@@ -69,7 +69,7 @@ QSize MenuItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QMode
     painter.setFont(font);
     int descriptionHeight = painter.fontMetrics().height();
 
-    // Assuming price and availability are the same font size
+    // Price and availability are the same font size
     int priceHeight = painter.fontMetrics().height();
     int availabilityHeight = painter.fontMetrics().height();
 

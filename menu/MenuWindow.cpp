@@ -24,7 +24,7 @@ MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout(centralWidget);
 
-    // Assume MenuListView has a method to accept Menu*
+    // MenuListView has a method to accept Menu*
     menuListView->setMenu(menu);
 
     // Add the MenuListView to the layout

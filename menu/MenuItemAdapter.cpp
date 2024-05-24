@@ -43,7 +43,7 @@ MenuItem MenuItemAdapter::deserialize(const std::string& csvLine) {
     std::string imagePath = seglist[2];
     std::string description = seglist[3];
     Category category = stringToCategory(seglist[4]);
-    std::vector<DietaryRestriction> dietaryRestrictions = parseDietaryRestrictions(seglist[5].substr(1, seglist[5].length() - 2)); // Removing quotes
+    std::vector<DietaryRestriction> dietaryRestrictions = parseDietaryRestrictions(seglist[5].substr(1, seglist[5].length() - 2));
     Availability availability = stringToAvailability(seglist[6]);
 
     return MenuItem(name, price, imagePath, description, category, dietaryRestrictions, availability);

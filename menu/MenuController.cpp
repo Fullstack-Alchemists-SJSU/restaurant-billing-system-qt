@@ -52,20 +52,19 @@ void MenuController::addItem() {
 
 void MenuController::editItem(const QString &itemName) {
     qDebug() << "Attempting to edit item:" << itemName;
-    auto& items = menuModel->getMenuItems();  // Get a reference to the items
+    auto& items = menuModel->getMenuItems();
     auto itemIt = std::find_if(items.begin(), items.end(), [&](const MenuItem& item) {
         return item.getName() == itemName.toStdString();
     });
 
     if (itemIt != items.end()) {
         MenuItemDialog dialog(menuView);
-        dialog.setItem(*itemIt);  // Set the item's current properties to the dialog
+        dialog.setItem(*itemIt);
         if (dialog.exec() == QDialog::Accepted) {
             MenuItem newItem = dialog.getItem();
             menuModel->updateItem(newItem);
             saveMenuItemsToFile(Constants::MENU_FILE);
             qDebug() << "Item updated successfully. noww";
-             // Assuming you have a method to get index from iterator
         }
     } else {
         qDebug() << "Item not found for editing:" << itemName;

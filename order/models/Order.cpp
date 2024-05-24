@@ -6,7 +6,7 @@ int Order::nextOrderID = 1;
 // Constructor that sets a specific order ID, use for deserialization/loading
 Order::Order(int id) : orderID(id), status("Open") {
     if (id >= nextOrderID) {
-        nextOrderID = id + 1; // Ensure the next ID is higher than any loaded ID
+        nextOrderID = id + 1;
     }
 }
 
