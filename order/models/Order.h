@@ -19,13 +19,14 @@ private:
 public:
     explicit Order(int id); // Constructor for setting a specific order ID
     Order();                // Constructor for automatically assigning an order ID
+    Order(const Order& other); // Custom copy constructor
 
     void addItem(OrderItem *item);
     void removeItem(const std::string &menuItemName);
     void updateItem(const std::string &menuItemName, int quantity);
     void closeOrder();
     std::vector<OrderItem *> getItems();
-
+    size_t getItemCount() const;
 
     int getOrderID() const { return orderID; }
     std::string getStatus() const;
@@ -34,20 +35,13 @@ public:
         this->status = status;
     }
 
-    // Method to get the number of items in the order
-    size_t getItemCount() const
-    {
-        return items.size();
-    }
-
-    // Method to access an item by index
     const OrderItem &getItemAt(size_t index) const
     {
         if (index >= items.size())
         {
             throw std::out_of_range("Index out of range");
         }
-        return *items[index]; // Assuming items is a vector of pointers
+        return *items[index];
     }
 
     typedef std::vector<OrderItem *>::const_iterator const_iterator;

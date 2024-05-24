@@ -20,6 +20,7 @@ public:
 private:
     Ui::BillWindow *ui;
     std::vector<Order *> orders;
+    OrderManagementFacade *facade;
 
     void populateOrders();
 };

@@ -4,18 +4,22 @@
 int Order::nextOrderID = 1;
 
 // Constructor that sets a specific order ID, use for deserialization/loading
-Order::Order(int id) : orderID(id), status("Open")
-{
-    if (id >= nextOrderID)
-    {
+Order::Order(int id) : orderID(id), status("Open") {
+    if (id >= nextOrderID) {
         nextOrderID = id + 1; // Ensure the next ID is higher than any loaded ID
     }
 }
 
 // Default constructor for creating new orders with unique IDs
-Order::Order() : orderID(nextOrderID++), status("Open")
-{
+Order::Order() : orderID(nextOrderID++), status("Open") {
     // Automatically increment to the next ID
+}
+
+// Custom copy constructor
+Order::Order(const Order& other) : orderID(other.orderID), status(other.status) {
+    for (OrderItem* item : other.items) {
+        items.push_back(new OrderItem(*item));
+    }
 }
 
 void Order::addItem(OrderItem *item)
@@ -67,4 +71,8 @@ std::string Order::getStatus() const
 
 std::vector<OrderItem *> Order::getItems(){
     return items;
+}
+
+size_t Order::getItemCount() const {
+    return items.size();
 }

@@ -12,7 +12,7 @@ BillDetails::BillDetails(Order* order, QWidget *parent)
     , ui(new Ui::BillDetails)
     , order(order)
     , adapter(new OrderTableAdapter(this))
-    , bill(std::make_shared<Bill>(1, order, QDateTime::currentDateTimeUtc().toString().toStdString()))  // Initialize bill here
+    , bill(std::make_shared<Bill>(1, order, QDateTime::currentDateTimeUtc().toString().toStdString()))
 {
     ui->setupUi(this);
     ui->labelDiscountStatus->setText("");

@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 #include "../menu/Menu.h"
+#include <QDebug>
 
 std::string OrderAdapter::serialize(const Order &order) {
     std::ostringstream oss;
@@ -33,7 +34,7 @@ Order OrderAdapter::deserialize(const std::string &csvLine) {
     std::string status = seglist[1];
 
     Order order(orderID);
-    order.setStatus(status);
+    order.setStatus("Open");
 
     for (size_t i = 2; i < seglist.size(); ++i) {
         std::istringstream itemStream(seglist[i]);
@@ -49,7 +50,21 @@ Order OrderAdapter::deserialize(const std::string &csvLine) {
         MenuItem *menuItem = new MenuItem(itemName, itemPrice, "", "", Category::MainCourse, {}, Availability::Available);
         OrderItem *orderItem = new OrderItem(menuItem, itemQuantity);
         order.addItem(orderItem);
+
+        // qDebug() << "Deserialized Item - Name:" << QString::fromStdString(itemName)
+        //          << "Price:" << itemPrice
+        //          << "Quantity:" << itemQuantity;
+    }
+
+    // Print the deserialized order details
+    qDebug() << "Deserialized Order - ID:" << order.getOrderID()
+             << "Status:" << QString::fromStdString(order.getStatus());
+    for (OrderItem* item : order.getItems()) {
+        qDebug() << "Item Name:" << QString::fromStdString(item->getMenuItemName())
+                 << "Quantity:" << item->getQuantity()
+                 << "Price:" << item->getMenuItem()->getPrice();
     }
 
     return order;
 }
+
