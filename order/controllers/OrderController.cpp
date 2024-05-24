@@ -1,5 +1,7 @@
 #include "OrderController.h"
+#include "OrderAdapter.h"
 #include <iostream>
+#include <fstream>
 
 OrderController::OrderController() : currentOrder(nullptr) {}
 
@@ -54,5 +56,20 @@ void OrderController::closeOrder()
     else
     {
         std::cerr << "Attempt to close an undefined order." << std::endl;
+    }
+}
+
+void OrderController::saveOrderToFile(const std::string &filename) {
+    if (currentOrder) {
+        std::ofstream file(filename, std::ios::app);
+        if (file.is_open()) {
+            OrderAdapter adapter;
+            file << adapter.serialize(*currentOrder) << "\n";
+            file.close();
+        } else {
+            std::cerr << "Unable to open file for writing: " << filename << std::endl;
+        }
+    } else {
+        std::cerr << "No current order to save." << std::endl;
     }
 }

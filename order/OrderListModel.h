@@ -3,7 +3,7 @@
 
 #include <QAbstractListModel>
 #include <QListView>
-#include "./models/Order.h" // Adjust include path as necessary
+#include "./models/Order.h"
 
 class OrderListModel : public QAbstractListModel
 {
@@ -25,7 +25,7 @@ public:
     Q_ENUM(OrderItemRoles)
 
 private:
-    Order *order; // Pointer to the order
+    Order *order;
     QListView *listView;
     std::unique_ptr<OrderListModel> model;
 };

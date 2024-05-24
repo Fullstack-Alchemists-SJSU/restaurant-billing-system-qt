@@ -3,15 +3,19 @@
 #include "../menu/MenuWindow.h"
 #include <QDebug>
 #include "orderdetails.h"
+#include "../util/Constants.h"
 
 OrderWindow::OrderWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::OrderWindow)
     , facade(new OrderManagementFacade())
 {
-
     ui->setupUi(this);
     ui->scrollArea->setWidgetResizable(true);
+
+    // Load orders from file
+    facade->loadOrdersFromFile(Constants::ORDER_FILE.toStdString());
+    setupOrderGrid();
 
     connect(this, &OrderWindow::onOrderAdded, this, &OrderWindow::setupOrderGrid);
 }

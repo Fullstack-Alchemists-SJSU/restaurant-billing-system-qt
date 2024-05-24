@@ -3,6 +3,7 @@
 
 #include "../controllers/OrderController.h"
 #include "../menu/Menu.h"
+#include "OrderAdapter.h"
 
 class OrderManagementFacade
 {
@@ -25,6 +26,7 @@ public:
     }
 
     Menu* getMenu();
+    void loadOrdersFromFile(const std::string &filename);
 
 private:
     OrderController orderController;

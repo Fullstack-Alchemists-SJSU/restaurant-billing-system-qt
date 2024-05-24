@@ -13,6 +13,7 @@ public:
     void removeItemFromOrder(const std::string &menuItemName);
     void updateItemInOrder(const std::string &menuItemName, int newQuantity);
     void closeOrder();
+    void saveOrderToFile(const std::string &filename);
 
 private:
     Order *currentOrder; // Pointer to the current order being managed

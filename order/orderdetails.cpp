@@ -1,9 +1,11 @@
 #include "orderdetails.h"
+#include "controllers/OrderController.h"
 #include "ui_orderdetails.h"
 #include <QWidget>
 #include <QDebug>
 #include "../bill/bill.h"
 #include <QDateTime>
+#include "../util/Constants.h"
 
 OrderDetails::OrderDetails(Order* order, Menu* menu, QWidget *parent)
     : QMainWindow(parent)
@@ -98,4 +100,9 @@ void OrderDetails::onOrderClosed(){
     ui->btnCloseOrder->setVisible(false);
     Bill bill(1, order, QDateTime::currentDateTime().toString().toStdString());
     qDebug() << "Total: " << bill.calculateTotal();
+
+    // Save order to file
+    OrderController controller;
+    controller.setOrder(order);
+    controller.saveOrderToFile(Constants::ORDER_FILE.toStdString());
 }
