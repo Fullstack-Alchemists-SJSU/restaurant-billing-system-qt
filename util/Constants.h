@@ -7,6 +7,7 @@ class Constants{
 public:
     inline static const QString USER_FILE = "/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/users.csv";
     inline static const QString ORDER_FILE = "/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/orders.csv";
+    inline static const QString MENU_FILE = "/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/menuitems.csv";
     inline static const QString EDIT_SVG = ":/edit.svg";
     inline static const QString DELETE_SVG = ":/delete.svg";
 

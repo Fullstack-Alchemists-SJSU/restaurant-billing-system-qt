@@ -3,10 +3,11 @@
 #include <iostream>
 #include <QDebug>
 #include <fstream>
+#include "../util/Constants.h"
 
 OrderManagementFacade::OrderManagementFacade() : nextOrderId(1) {
     MenuController* menuController = new MenuController();
-    this->menu = menuController->getMenuItems("/Users/vijithagunta/Vijitha Masters Work/MSSE Sem2/cmpe202/restaurant-billing-system-qt/db/menuitems.csv");
+    this->menu = menuController->getMenuItems(Constants::MENU_FILE);
 }
 
 int OrderManagementFacade::createOrder()

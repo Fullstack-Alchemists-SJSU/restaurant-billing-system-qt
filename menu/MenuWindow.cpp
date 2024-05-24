@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QAction>
 #include "MenuController.h"
+#include "../util/Constants.h"
 
 MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
     : QMainWindow(parent), menuListView(new MenuListView(this)), menuController(new MenuController(this)) {
@@ -11,7 +12,7 @@ MenuWindow::MenuWindow(Menu* menu, QWidget *parent)
 
     menuController->setMenuModel(menu);
     menuController->setView(menuListView);
-    menuController->loadMenuItemsFromFile("C:/Users/patil/CMPE202/restaurant-billing-system/restaurant-billing-system-qt/db/menuitems.csv");
+    menuController->loadMenuItemsFromFile(Constants::MENU_FILE);
 
     // Create a menu bar and add items
     QMenuBar *menuBar = new QMenuBar(this);
